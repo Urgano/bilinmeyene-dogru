@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bilinmeyene Doğru</title>
+<meta name="description" content="İstihbarat teşkilatlarının kamuya açtığı UFO, Soğuk Savaş, paranormal deney ve çözülmemiş vaka dosyaları: harita, kronoloji ve canlı akış.">
+<meta property="og:title" content="Bilinmeyene Doğru">
+<meta property="og:description" content="Gizliliği kaldırılmış dosyalar, resmi kaynaklarıyla: harita, kronoloji ve canlı akış.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#060a11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23060a11'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%235fd4c4' stroke-width='1.5'/%3E%3Cpath d='M16 16 L16 5 A11 11 0 0 1 26 12 Z' fill='%235fd4c4' fill-opacity='.5'/%3E%3Ccircle cx='21' cy='11' r='2' fill='%23f2b84b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* Layout: gece gözlemevi — radar ve kayan bant üstte; konu hapları; solda harita + kart kronoloji, sağda canlı telsiz; dosyalar sansürü kalkan bir çekmecede açılır */
+:root {
+  --bg: #060a11;
+  --bg2: #0b1220;
+  --glass: rgba(20, 30, 48, .62);
+  --glass-hi: rgba(32, 46, 70, .75);
+  --line: rgba(140, 170, 210, .14);
+  --fg: #e7edf6;
+  --muted: #8a9ab0;
+  --accent: #f2b84b;
+  --live: #5fd4c4;
+  --stamp: #ff6b5e;
+  --ink: #000;
+  --land: #17223a;
+  --glow: rgba(95, 212, 196, .10);
+  --glow2: rgba(242, 184, 75, .07);
+  --c-ufo: #5fd4c4;
+  --c-soguk: #f2b84b;
+  --c-psi: #b39cff;
+  --c-cozulmemis: #ff8a6b;
+  --f-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --r: 16px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --bg: #eef2f7; --bg2: #e3e9f2; --glass: rgba(255,255,255,.72); --glass-hi: rgba(255,255,255,.92); --line: rgba(30,50,80,.12);
+  --fg: #111a28; --muted: #5a6779; --accent: #a86b00; --live: #0f8a7b; --stamp: #c8382c; --ink: #111a28; --land: #d5deea;
+  --glow: rgba(15,138,123,.10); --glow2: rgba(168,107,0,.07);
+  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; color-scheme: light } }
+:root[data-theme="light"] {
+  --bg: #eef2f7; --bg2: #e3e9f2; --glass: rgba(255,255,255,.72); --glass-hi: rgba(255,255,255,.92); --line: rgba(30,50,80,.12);
+  --fg: #111a28; --muted: #5a6779; --accent: #a86b00; --live: #0f8a7b; --stamp: #c8382c; --ink: #111a28; --land: #d5deea;
+  --glow: rgba(15,138,123,.10); --glow2: rgba(168,107,0,.07);
+  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; color-scheme: light }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.55; min-height: 100vh;
+  background-image: radial-gradient(900px 500px at 85% -10%, var(--glow), transparent 70%), radial-gradient(700px 500px at -10% 20%, var(--glow2), transparent 70%); background-attachment: fixed; }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1260px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.glass { background: var(--glass); border: 1px solid var(--line); border-radius: var(--r); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); }
+
+/* Yıldız alanı */
+#stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .7; }
+
+/* Hero */
+.hero .wrap { padding-block: 36px 22px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: center; }
+@media (max-width: 760px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); } .radar { justify-self: start; } }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
+.live { display: inline-flex; align-items: center; gap: 8px; color: var(--live); }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 0 var(--live); animation: ping 1.8s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 60%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(42px, 8vw, 92px); line-height: .95; margin: 14px 0 14px; letter-spacing: -.035em; text-wrap: balance; }
+h1 .grad { background: linear-gradient(100deg, var(--accent), var(--c-cozulmemis) 55%, var(--c-psi)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { max-width: 60ch; color: var(--muted); margin: 0 0 18px; font-size: 16.5px; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); background: var(--glass); padding: 5px 11px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+.pill b { color: var(--fg); font-weight: 500; }
+
+/* Radar */
+.radar { position: relative; width: 210px; height: 210px; border-radius: 50%; border: 1px solid var(--line); background: radial-gradient(circle, color-mix(in srgb, var(--live) 8%, transparent), transparent 70%); overflow: hidden; flex: none; }
+.radar::before, .radar::after { content: ""; position: absolute; inset: 22%; border-radius: 50%; border: 1px dashed var(--line); }
+.radar::after { inset: 44%; border-style: solid; }
+.radar .cross { position: absolute; inset: 0; background: linear-gradient(var(--line), var(--line)) center/1px 100% no-repeat, linear-gradient(var(--line), var(--line)) center/100% 1px no-repeat; }
+.radar .sweep { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, color-mix(in srgb, var(--live) 45%, transparent), transparent 22%); animation: spin 5s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.radar .blip { position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--c); opacity: .15; animation: blipA 5s linear infinite; }
+@keyframes blipA { 0% { opacity: 1; transform: scale(1.8); box-shadow: 0 0 10px var(--c); } 30% { opacity: .5; transform: scale(1); } 100% { opacity: .12; } }
+.radar .lab { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); }
+
+/* Kayan bant */
+.ticker { border-block: 1px solid var(--line); background: var(--glass); overflow: hidden; }
+.ticker .wrap { display: flex; align-items: center; gap: 14px; padding-block: 9px; }
+.ticker .tag { flex: none; font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--bg); background: var(--stamp); padding: 2px 8px; border-radius: 4px; }
+.tick-vp { overflow: hidden; flex: 1; min-width: 0; mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.tick-track { display: inline-flex; gap: 44px; white-space: nowrap; animation: marquee 60s linear infinite; font-size: 14px; }
+.tick-track span b { color: var(--accent); font-family: var(--f-mono); font-weight: 500; font-size: 12px; margin-right: 8px; }
+.tick-vp:hover .tick-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Konu hapları */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.tabs .wrap { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+.tab { flex: none; border: 1px solid var(--line); background: var(--glass); padding: 6px 14px 6px 8px; border-radius: 999px; cursor: pointer; font-size: 14px; display: inline-flex; gap: 8px; align-items: center; transition: background .2s, border-color .2s, transform .2s; }
+.tab:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--c, var(--accent)) 60%, transparent); }
+.tab .n { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+.tab[aria-pressed="true"] { background: color-mix(in srgb, var(--c, var(--accent)) 18%, var(--glass-hi)); border-color: var(--c, var(--accent)); }
+.tab[aria-pressed="true"] .n { color: var(--fg); }
+
+/* Animasyonlu konu simgeleri (küçük döngüler) */
+.ico { width: 28px; height: 28px; flex: none; display: block; color: var(--c, var(--accent)); overflow: visible; }
+.ico * { vector-effect: non-scaling-stroke; }
+.a-bob { animation: bob 2.4s ease-in-out infinite; transform-origin: center; }
+@keyframes bob { 50% { transform: translateY(-2.5px); } }
+.a-beam { animation: beam 2.4s ease-in-out infinite; }
+@keyframes beam { 0%, 100% { opacity: .15; } 50% { opacity: .7; } }
+.a-ring { transform-origin: 14px 14px; animation: ring 2.4s ease-out infinite; }
+.a-ring.d2 { animation-delay: .8s; } .a-ring.d3 { animation-delay: 1.6s; }
+@keyframes ring { 0% { transform: scale(.2); opacity: .9; } 100% { transform: scale(1.15); opacity: 0; } }
+.a-lid { transform-origin: 14px 14px; animation: blinkLid 4s infinite; }
+@keyframes blinkLid { 0%, 44%, 52%, 100% { transform: scaleY(1); } 48% { transform: scaleY(.05); } }
+.a-iris { animation: look 4s ease-in-out infinite; }
+@keyframes look { 0%, 20% { transform: translateX(0); } 30%, 40% { transform: translateX(-2.4px); } 60%, 70% { transform: translateX(2.4px); } 85%, 100% { transform: translateX(0); } }
+.a-mag { animation: search 3.2s ease-in-out infinite; }
+@keyframes search { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(3px, -2px); } 50% { transform: translate(-1px, 2px); } 75% { transform: translate(-3px, -1px); } }
+.a-q { animation: flick 3.2s steps(1) infinite; }
+@keyframes flick { 0%, 60%, 100% { opacity: 1; } 62%, 66% { opacity: .2; } 64% { opacity: .9; } }
+.a-shuffle { animation: shuffle 2.8s ease-in-out infinite; }
+.a-shuffle.d2 { animation-delay: .25s; } .a-shuffle.d3 { animation-delay: .5s; }
+@keyframes shuffle { 0%, 70%, 100% { transform: translateY(0); } 35% { transform: translateY(-3px); } }
+.a-twinkle { transform-origin: 14px 14px; animation: twinkle 2.2s ease-in-out infinite; }
+@keyframes twinkle { 50% { transform: scale(.82) rotate(18deg); opacity: .65; } }
+
+/* Ana ızgara */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 370px; gap: 24px; padding-block: 24px 60px; align-items: start; }
+@media (max-width: 980px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.sec-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 12px; flex-wrap: wrap; }
+.sec-h h2 { font-family: var(--f-display); font-weight: 700; font-size: 24px; letter-spacing: -.02em; margin: 0; }
+.hint { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+
+/* Harita */
+.map { position: relative; overflow: hidden; padding: 6px; }
+.map svg { display: block; width: 100%; height: auto; }
+.map .land { fill: var(--land); stroke: var(--bg2); stroke-width: .5; }
+.map .grat { fill: none; stroke: var(--line); stroke-width: .5; }
+.map .pin { cursor: pointer; transition: opacity .3s; }
+.map .pin .core { fill: var(--c); stroke: var(--bg); stroke-width: 1.5; }
+.map .pin .ripple { fill: none; stroke: var(--c); stroke-width: 1.2; transform-box: fill-box; transform-origin: center; animation: ripple 2.6s ease-out infinite; }
+@keyframes ripple { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.map .pin.dim { opacity: .12; }
+.map .pin.dim .ripple { animation: none; opacity: 0; }
+.map .pin:hover .core, .map .pin:focus .core { r: 7.5; }
+.map-tip { position: absolute; pointer-events: none; padding: 8px 11px; font-size: 13px; max-width: 250px; z-index: 2; }
+.map-empty { padding: 48px 16px; text-align: center; color: var(--muted); font-family: var(--f-mono); font-size: 13px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 4px 10px 8px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+
+/* Kronoloji */
+.timeline { margin-top: 32px; }
+.decade { display: flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; padding: 20px 0 10px; }
+.decade::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.cards { display: grid; gap: 10px; }
+.case { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; padding: 14px 16px; cursor: pointer; text-align: left; width: 100%; align-items: start; transition: transform .2s, border-color .2s, background .2s; }
+.case:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 55%, transparent); background: var(--glass-hi); }
+.case .ico { width: 40px; height: 40px; padding: 6px; border-radius: 12px; background: color-mix(in srgb, var(--c) 14%, transparent); }
+.c-title { font-family: var(--f-display); font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 0 0 3px; text-wrap: balance; }
+.c-sum { color: var(--muted); margin: 0 0 8px; max-width: 70ch; font-size: 14.5px; }
+.c-year { font-family: var(--f-display); font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; color: var(--c); line-height: 1.1; text-align: right; }
+.c-year small { display: block; font-family: var(--f-mono); font-size: 11px; font-weight: 400; color: var(--muted); max-width: 120px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--f-mono); font-size: 11.5px; }
+.chip { border: 1px solid var(--line); padding: 1px 8px; border-radius: 999px; color: var(--muted); }
+.chip.agency { color: var(--fg); }
+.status { padding: 1px 8px; border-radius: 999px; }
+.status.open { background: color-mix(in srgb, var(--stamp) 20%, transparent); color: var(--stamp); }
+.status.closed { background: color-mix(in srgb, var(--live) 16%, transparent); color: var(--live); }
+.status.disputed { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+@media (max-width: 560px) { .case { grid-template-columns: 40px minmax(0, 1fr); gap: 4px 12px; } .case .ico { grid-column: 1; grid-row: 1 / span 2; } .c-year { grid-column: 2; grid-row: 1; text-align: left; font-size: 18px; } .c-year small { display: inline; margin-left: 6px; } .c-main { grid-column: 2; grid-row: 2; } }
+
+/* Telsiz */
+.feed { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 76px); display: flex; flex-direction: column; max-height: calc(100vh - 100px); overflow: hidden; }
+@media (max-width: 980px) { .feed { position: static; max-height: none; } }
+.feed-h { padding: 16px 16px 0; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.feed-h h2 { font-family: var(--f-display); font-weight: 700; font-size: 20px; margin: 0; display: flex; justify-content: space-between; align-items: center; }
+.wave { display: inline-flex; gap: 2px; align-items: center; height: 16px; }
+.wave i { width: 3px; background: var(--live); border-radius: 2px; animation: eq 1s ease-in-out infinite; }
+.wave i:nth-child(2) { animation-delay: .15s; } .wave i:nth-child(3) { animation-delay: .3s; } .wave i:nth-child(4) { animation-delay: .45s; } .wave i:nth-child(5) { animation-delay: .6s; }
+@keyframes eq { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+.ftabs { display: flex; gap: 4px; }
+.ftab { background: none; border: 0; border-bottom: 2px solid transparent; padding: 6px 10px; cursor: pointer; font-size: 14px; color: var(--muted); }
+.ftab[aria-pressed="true"] { color: var(--fg); border-color: var(--live); }
+.feed-list { overflow-y: auto; padding: 4px 16px 12px; min-height: 120px; }
+.item { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; animation: slideIn .45s ease both; }
+.item:last-child { border-bottom: 0; }
+@keyframes slideIn { from { transform: translateY(6px); opacity: .3; } }
+.item time { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.item h3 { font-size: 14.5px; font-weight: 600; margin: 0; line-height: 1.38; }
+.item p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.item a { font-size: 12.5px; font-family: var(--f-mono); }
+.new { font-family: var(--f-mono); font-size: 10px; color: var(--bg); background: var(--stamp); padding: 1px 6px; border-radius: 4px; margin-left: 6px; letter-spacing: .08em; vertical-align: 2px; }
+.feed-foot { padding: 10px 16px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+.empty { color: var(--muted); font-size: 14px; padding: 20px 0; }
+
+/* Dosya çekmecesi */
+dialog { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100%; height: 100%; margin: 0; }
+dialog::backdrop { background: rgba(2, 4, 8, .55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+dialog[open] .drawer { animation: drawerIn .35s cubic-bezier(.2, .8, .2, 1); }
+@keyframes drawerIn { from { transform: translateX(40px); opacity: 0; } }
+.drawer { margin-left: auto; height: 100%; width: min(660px, 100%); background: var(--bg2); border-left: 1px solid var(--line); overflow-y: auto; padding: calc(env(safe-area-inset-top, 0px) + 20px) max(22px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 36px) 24px; display: grid; gap: 18px; align-content: start; color: var(--fg); }
+.d-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.d-top .ico { width: 52px; height: 52px; padding: 8px; border-radius: 14px; background: color-mix(in srgb, var(--c) 16%, transparent); }
+.close { background: var(--glass); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 13px; }
+.kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.drawer h2 { font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 5.5vw, 44px); line-height: 1; letter-spacing: -.03em; margin: 6px 0 0; text-wrap: balance; }
+.stampline { justify-self: start; border: 2px solid var(--stamp); color: var(--stamp); font-family: var(--f-mono); font-weight: 500; letter-spacing: .16em; font-size: 13px; padding: 4px 12px; border-radius: 6px; text-transform: uppercase; transform: rotate(-3deg); animation: stamp .5s .15s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes stamp { from { transform: rotate(-3deg) scale(2.2); opacity: 0; } }
+.facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 18px; font-size: 14px; margin: 0; padding: 14px 16px; }
+.facts dt { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding-top: 2px; }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+.body p { margin: 0 0 12px; max-width: 65ch; position: relative; }
+.body p .bar { position: absolute; left: 0; right: 0; height: calc(100% - 4px); top: 2px; background: var(--ink); border-radius: 3px; transform-origin: right; animation: declass .7s cubic-bezier(.7, 0, .3, 1) both; }
+@keyframes declass { 0%, 30% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.src { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--glass); color: var(--fg); padding: 8px 14px; border-radius: 999px; text-decoration: none; font-size: 14px; cursor: pointer; transition: border-color .2s; }
+.btn:hover { border-color: var(--accent); }
+.btn.solid { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+.ask { padding: 16px; display: grid; gap: 10px; }
+.ask h3 { margin: 0; font-family: var(--f-display); font-size: 16px; display: flex; align-items: center; gap: 8px; }
+.ask form { display: flex; gap: 8px; flex-wrap: wrap; }
+.ask input { flex: 1 1 220px; min-width: 0; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; font: inherit; }
+.answer { white-space: pre-wrap; font-size: 14px; color: var(--fg); }
+.typing { display: inline-flex; gap: 4px; } .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bob 1s infinite; } .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+.related { display: grid; gap: 8px; }
+.related h3 { margin: 0; font-size: 13px; font-family: var(--f-mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 400; }
+.related .row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.foot { border-top: 1px solid var(--line); }
+.foot .wrap { padding-block: 20px 36px; font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+  .tick-track { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">
+        <span class="live"><i></i><span id="liveLabel">Canlı arşiv</span></span>
+        <span>CIA · FBI · Pentagon/AARO · NSA · UK National Archives · CNES · FAB</span>
+        <span id="updated">Son kontrol: —</span>
+      </div>
+      <h1>Bilinmeyene <span class="grad">Doğru</span></h1>
+      <p class="lede">İstihbarat teşkilatlarının ve devlet arşivlerinin kamuya açtığı dosyalar. Her kayıt resmi kaynağına bağlanır; belgelenen ile hâlâ cevapsız kalanı ayrı ayrı işaretleriz.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="radar" id="radar" aria-hidden="true"><div class="cross"></div><div class="sweep"></div><span class="lab">TARAMA</span></div>
+  </div>
+</header>
+
+<div class="ticker" aria-label="Son gelişmeler"><div class="wrap"><span class="tag">SON DAKİKA</span><div class="tick-vp"><div class="tick-track" id="ticker"><span>Akış bağlanıyor…</span></div></div></div></div>
+
+<nav class="tabs" aria-label="Konu başlıkları"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap grid">
+  <section>
+    <div class="sec-h"><h2>Olay haritası</h2><span class="hint">Pine dokun, dosyayı aç</span></div>
+    <div class="map glass" id="map"><div class="map-empty">Harita yükleniyor…</div></div>
+
+    <div class="timeline">
+      <div class="sec-h"><h2>Kronoloji</h2><span class="hint" id="tlCount"></span></div>
+      <div id="timeline"></div>
+    </div>
+  </section>
+
+  <aside class="feed glass" aria-label="Canlı akış">
+    <div class="feed-h">
+      <h2>Telsiz <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></h2>
+      <div class="ftabs">
+        <button class="ftab" id="ft-belge" aria-pressed="true" data-kind="belge">Yeni belgeler</button>
+        <button class="ftab" id="ft-gundem" aria-pressed="false" data-kind="gundem">Gündem</button>
+      </div>
+    </div>
+    <div class="feed-list" id="feed"><p class="empty">Akış bağlanıyor…</p></div>
+    <div class="feed-foot" id="feedFoot">Yeni yayınlar geldikçe bu panel kendiliğinden güncellenir.</div>
+  </aside>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <span>Özetler resmi belgelerden derlenmiştir; tam metin için her dosyadaki resmi bağlantıyı kullanın.</span>
+  <span>“Çözülmemiş” etiketi resmi bir açıklama bulunmadığını gösterir, olağanüstü bir sonuç olduğunu değil.</span>
+</div></footer>
+
+<dialog id="dlg" aria-label="Dosya ayrıntısı"><div class="drawer" id="drawer"></div></dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+/* ---------- simgeler (küçük döngüsel animasyonlar) ---------- */
+const ICONS = {
+  all: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect class="a-shuffle d3" x="7" y="5" width="15" height="11" rx="2" opacity=".45"/><rect class="a-shuffle d2" x="5" y="9" width="17" height="12" rx="2" opacity=".7"/><path class="a-shuffle" d="M3 13h7l2 2h11v9H3z" fill="currentColor" fill-opacity=".18"/></svg>`,
+  ufo: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><path class="a-beam" d="M10 17 6 27h16l-4-10z" fill="currentColor" stroke="none"/><g class="a-bob"><ellipse cx="14" cy="13" rx="11" ry="3.6" fill="currentColor" fill-opacity=".2"/><path d="M9 11.5a5 5 0 0 1 10 0"/><circle cx="8.5" cy="13.4" r=".9" fill="currentColor"/><circle cx="14" cy="14" r=".9" fill="currentColor"/><circle cx="19.5" cy="13.4" r=".9" fill="currentColor"/></g></svg>`,
+  soguk: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="a-ring" cx="14" cy="14" r="12"/><circle class="a-ring d2" cx="14" cy="14" r="12"/><circle class="a-ring d3" cx="14" cy="14" r="12"/><path d="M8 15.5h10l3-1.5-3-1.5H8a1.5 1.5 0 0 0 0 3z" fill="currentColor" fill-opacity=".35"/><path d="M13 12.5V10h2.5"/></svg>`,
+  psi: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><g class="a-lid"><path d="M2.5 14S7 6.5 14 6.5 25.5 14 25.5 14 21 21.5 14 21.5 2.5 14 2.5 14z" fill="currentColor" fill-opacity=".14"/><g class="a-iris"><circle cx="14" cy="14" r="4.2"/><circle cx="14" cy="14" r="1.7" fill="currentColor"/></g></g><path d="M14 1.5v2.5M5 4.5l1.6 1.8M23 4.5l-1.6 1.8" opacity=".6"/></svg>`,
+  cozulmemis: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><text class="a-q" x="9.5" y="17.5" font-family="Sora, sans-serif" font-size="11" font-weight="700" fill="currentColor" stroke="none">?</text><g class="a-mag"><circle cx="12.5" cy="13" r="7.2" fill="currentColor" fill-opacity=".1"/><path d="m18 18.5 6 6"/></g></svg>`,
+  takip: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path class="a-twinkle" d="m14 3 3.2 6.9 7.3.8-5.5 5 1.6 7.3L14 19.2 7.4 23l1.6-7.3-5.5-5 7.3-.8z" fill="currentColor" fill-opacity=".25"/></svg>`,
+};
+
+const TOPICS = [
+  { id: "all", name: "Tüm dosyalar" },
+  { id: "ufo", name: "UFO / UAP" },
+  { id: "soguk", name: "Soğuk Savaş" },
+  { id: "psi", name: "Paranormal deneyler" },
+  { id: "cozulmemis", name: "Çözülmemiş vakalar" },
+  { id: "takip", name: "Takip ettiklerim" },
+];
+const STATUS = { open: "Çözülmemiş", closed: "Resmi açıklama var", disputed: "Tartışmalı" };
+const STAMP = { open: "Dosya açık", closed: "Gizliliği kaldırıldı", disputed: "Tartışmalı" };
+
+const CASES = [
+  /* ---------- UFO / UAP ---------- */
+  { id: "roswell", topic: "ufo", year: 1947, date: "Temmuz 1947", title: "Roswell enkazı", agency: "FBI", ref: "FBI Vault · Roswell UFO", status: "disputed",
+    loc: "Roswell, New Mexico, ABD", lat: 33.39, lon: -104.52,
+    sum: "Ordu önce bir 'uçan disk' bulunduğunu duyurdu, ertesi gün enkazı hava balonu olarak açıkladı.",
+    body: ["8 Temmuz 1947'de Roswell Ordu Hava Sahası bir 'uçan disk' ele geçirildiğini açıkladı; bir gün sonra enkazın bir hava balonuna ait olduğu söylendi. FBI'ın o günlere ait teleks yazışmaları Vault'ta yayımlandı.", "ABD Hava Kuvvetleri 1990'larda enkazın gizli Mogul balon projesine ait olduğunu bildirdi. Olay, 2026 PURSUE yayınlarında da referans verilen dosyalar arasında."],
+    links: [["FBI Vault: Roswell UFO", "https://vault.fbi.gov/Roswell%20UFO"]] },
+  { id: "sign", topic: "ufo", year: 1948, date: "8 Mayıs 1948", title: "Project Sign: Durum Tahmini", agency: "USAF", ref: "Estimate of the Situation", status: "closed",
+    loc: "Wright-Patterson Hava Üssü, Ohio", lat: 39.82, lon: -84.05,
+    sum: "ABD ordusunun UFO'lar hakkındaki ilk resmi değerlendirmesi; Pentagon 2026 açıklamalarını bu yıldönümünde başlattı.",
+    body: ["Project Sign, Hava Kuvvetleri'nin uçan disk raporlarını inceleyen ilk programıydı. 'Estimate of the Situation' adlı değerlendirme üst kademede kabul görmedi ve program Grudge, ardından Blue Book olarak sürdü.", "Savaş Bakanlığı PURSUE kapsamındaki ilk yayını, bu belgenin yıldönümü olan 8 Mayıs 2026'da yaptı."],
+    links: [["PURSUE arşivi (war.gov/UFO)", "https://www.war.gov/ufo/"]] },
+  { id: "hottel", topic: "ufo", year: 1950, date: "22 Mart 1950", title: "Hottel notu: 'Uçan daireler'", agency: "FBI", ref: "FBI Vault · Guy Hottel", status: "closed",
+    loc: "Washington D.C. saha ofisi", lat: 38.9, lon: -77.03,
+    sum: "FBI Vault'un en çok görüntülenen tek sayfası. Bir muhbirin New Mexico'da düşmüş daireler iddiasını aktarıyor.",
+    body: ["FBI Washington ofisi şefi Guy Hottel, Direktör J. Edgar Hoover'a bir muhbirden duyduğu 'uçan daire' anlatısını iletti. Notta iddianın ayrıca değerlendirilmediği belirtiliyor.", "FBI, belgenin 1970'lerden beri kamuya açık olduğunu ve Roswell'den yaklaşık üç yıl sonra yazıldığını vurgulayarak iki olay arasında bağ bulunmadığını açıkladı."],
+    links: [["FBI Vault: Guy Hottel", "https://vault.fbi.gov/hottel_guy"]] },
+  { id: "fswp", topic: "ufo", year: 1951, date: "Haziran 1951", title: "Uçan Daire Çalışma Grubu", agency: "UK MoD", ref: "The National Archives", status: "closed",
+    loc: "Londra, Birleşik Krallık", lat: 51.5, lon: -0.12,
+    sum: "İngiliz Savunma Bakanlığı'nın gökteki tuhaf cisimleri inceleyen ilk çalışma grubunun raporu.",
+    body: ["Savunma Bakanlığı, raporları değerlendirmek için 'Flying Saucer Working Party' kurdu. Grubun 1951 raporu, gözlemlerin bilinen olgularla açıklanabileceği sonucuna vardı.", "Rapor 2001'de araştırmacı David Clarke'ın talebiyle yayımlandı ve İngiltere'nin UFO dosyalarını Ulusal Arşiv'e aktarma sürecinin ilk adımlarından biri oldu."],
+    links: [["UK National Archives: UFO dosyaları", "https://www.nationalarchives.gov.uk/ufos"]] },
+  { id: "dc1952", topic: "ufo", year: 1952, date: "19–27 Temmuz 1952", title: "Washington üzerinde radar izleri", agency: "USAF", ref: "Project Blue Book", status: "disputed",
+    loc: "Washington D.C. hava sahası", lat: 38.85, lon: -77.3,
+    sum: "İki hafta sonu üst üste havaalanı radarları başkentin üzerinde açıklanamayan izler yakaladı; jetler havalandırıldı.",
+    body: ["Washington Ulusal Havalimanı ve Andrews Hava Üssü radarları, yasak hava sahası dahil başkentin üzerinde hareket eden çok sayıda iz gördü. Önleme uçakları gönderildi ama temas kurulamadı.", "Hava Kuvvetleri olayı sıcaklık terselmesinin yarattığı sahte radar yansımalarıyla açıkladı; bazı radar operatörleri bu açıklamaya itiraz etti. Kayıtlar Blue Book arşivinde."],
+    links: [["NARA: Project Blue Book", "https://www.archives.gov/research/military/air-force/ufos"]] },
+  { id: "bluebook", topic: "ufo", year: 1952, date: "1952 – 1969", title: "Project Blue Book", agency: "USAF", ref: "NARA RG 341", status: "closed",
+    loc: "Wright-Patterson Hava Üssü, Ohio", lat: 39.75, lon: -84.2,
+    sum: "12.618 gözlemi kayda geçiren program; 701 vaka 'tanımlanamadı' olarak kapandı.",
+    body: ["Hava Kuvvetleri 1952–1969 arasında UFO raporlarını Blue Book adıyla topladı. Program, ulusal güvenliğe tehdit bulunmadığı gerekçesiyle 1969'da kapatıldı.", "Kayıtlar ABD Ulusal Arşivleri'ne (NARA) devredildi ve araştırmacılara açık."],
+    links: [["NARA: Project Blue Book", "https://www.archives.gov/research/military/air-force/ufos"]] },
+  { id: "tehran", topic: "ufo", year: 1976, date: "19 Eylül 1976", title: "Tahran F-4 takibi", agency: "DIA · NSA", ref: "DIA istihbarat raporu", status: "open",
+    loc: "Tahran, İran", lat: 35.69, lon: 51.39,
+    sum: "İran Hava Kuvvetleri'nin iki F-4'ü parlak bir cisme yaklaşınca silah ve iletişim sistemlerinin arızalandığını bildirdi.",
+    body: ["Gece yarısı şehrin üzerinde görülen parlak ışık için iki F-4 Phantom havalandı. Pilotların anlatımına göre yaklaştıkça uçakların cihazları devre dışı kaldı; cisimden ayrılan daha küçük ışıklar görüldü.", "ABD Savunma İstihbarat Teşkilatı'nın olayla ilgili raporu bilgi edinme yoluyla yayımlandı; CIA ve NSA arşivlerinde de değerlendirmeler bulunuyor. Olay resmi olarak açıklanamadı."],
+    links: [["CIA Reading Room kaydı", "https://www.cia.gov/readingroom/node/764911"], ["NSA: UFO belgeleri", "https://www.nsa.gov/news-features/declassified-documents/ufo/assets/files/now_you_see.pdf"]] },
+  { id: "prato", topic: "ufo", year: 1977, date: "Ekim – Aralık 1977", title: "Operação Prato", agency: "FAB (Brezilya)", ref: "Arquivo Nacional", status: "open",
+    loc: "Colares, Pará, Brezilya", lat: -0.93, lon: -48.28,
+    sum: "Brezilya Hava Kuvvetleri, Amazon köylerinde ışık gördüklerini söyleyen halkın şikâyeti üzerine aylarca saha araştırması yaptı.",
+    body: ["Colares adası ve çevresinde yaşayanlar, geceleri gökte ve suda ışıklar gördüklerini, bazılarının yaralandığını bildirdi. Hava Kuvvetleri ekibi raporlar, çizimler ve fotoğraflarla bunu belgeledi.", "Belgelerin bir bölümü sonradan Brezilya Ulusal Arşivi'ne aktarıldı; tam erişim için açılan bilgi edinme başvuruları hâlâ sürüyor."],
+    links: [["Brezilya hükümeti: bilgi erişim kararı (PDF)", "https://www.gov.br/casacivil/pt-br/assuntos/colegiados/comissao-mista-de-reavaliacao-de-informacoes-cmri/decisoes-de-recurso-de-4a-instancia/deliberacoes-anteriores/2015/decisao-0212-2015-nup-60502-000921-2015-38.pdf"]] },
+  { id: "rendlesham", topic: "ufo", year: 1980, date: "26–28 Aralık 1980", title: "Rendlesham Ormanı", agency: "UK MoD", ref: "DEFE 24/1948", status: "open",
+    loc: "RAF Woodbridge / Bentwaters, Suffolk", lat: 52.09, lon: 1.43,
+    sum: "'İngiltere'nin Roswell'i'. ABD askerleri ormanda ışıklı bir cisim gördüklerini rapor etti.",
+    body: ["İngiltere'deki iki NATO üssünün yakınında görev yapan ABD Hava Kuvvetleri personeli, ardışık gecelerde ormanda ışıklar ve bir cisim gördüklerini bildirdi.", "Savunma Bakanlığı olayı açıklayamadığını, ancak radarda bir şey görülmediği için 'savunma açısından önemsiz' bulduğunu kaydetti. Dosya Ulusal Arşiv'de DEFE 24/1948 numarasıyla okunabiliyor."],
+    links: [["UK National Archives: UFO dosyaları", "https://www.nationalarchives.gov.uk/ufos"]] },
+  { id: "brasil86", topic: "ufo", year: 1986, date: "19 Mayıs 1986", title: "Brezilya'nın resmi UFO gecesi", agency: "FAB (Brezilya)", ref: "Hava Kuvvetleri raporu", status: "open",
+    loc: "São José dos Campos, Brezilya", lat: -23.2, lon: -45.9,
+    sum: "Radarda 21 iz belirdi; F-5 ve Mirage jetleri önleme için havalandı. Hava Bakanı olayı kamuoyuna kendisi açıkladı.",
+    body: ["São Paulo ve Rio de Janeiro arasında hem radarlar hem pilotlar ışıklı cisimler gördü. Hava Kuvvetleri birden fazla önleme uçağı kaldırdı.", "Olaydan sonra hazırlanan resmi rapor, cisimlerin tanımlanamadığını kaydetti; belge 2009'dan sonra Ulusal Arşiv'e aktarılan dosyalar arasında yer aldı."],
+    links: [["Olayın 40. yılı haberi", "https://www.bemparana.com.br/noticias/brasil/40-anos-da-noite-em-que-cacas-da-forca-aerea-perseguiram-21-ovnis/amp/"]] },
+  { id: "belgium", topic: "ufo", year: 1989, date: "Kasım 1989 – Nisan 1990", title: "Belçika üçgen dalgası", agency: "Belçika Hava Kuvvetleri", ref: "Resmi basın açıklaması", status: "open",
+    loc: "Belçika", lat: 50.85, lon: 4.35,
+    sum: "Binlerce kişi büyük, ışıklı üçgen cisimler gördüğünü bildirdi; 30–31 Mart 1990 gecesi iki F-16 havalandırıldı.",
+    body: ["Jandarmalar dahil çok sayıda tanığın ihbarı üzerine Belçika Hava Kuvvetleri radar kayıtlarını inceledi ve F-16 jetlerini gönderdi. Pilotlar kısa süreli radar kilitleri yakaladı ama görsel temas kuramadı.", "Hava Kuvvetleri, açıklama bulunamadığını basın toplantısıyla duyurdu. İngiliz Savunma Bakanlığı da dalgayı dosyalarında izledi."],
+    links: [["UK National Archives: UFO dosyaları", "https://www.nationalarchives.gov.uk/ufos"]] },
+  { id: "nimitz", topic: "ufo", year: 2004, date: "Kasım 2004 · Ocak 2015", title: "FLIR1, Gimbal, GoFast videoları", agency: "US Navy", ref: "DoD · 27 Nisan 2020", status: "open",
+    loc: "Pasifik, San Diego açıkları", lat: 31.5, lon: -117.5,
+    sum: "Donanma pilotlarının kızılötesi görüntüleri. Pentagon 2020'de resmi olarak yayımladı.",
+    body: ["2004'te USS Nimitz grubundan pilotlar 'Tic Tac' olarak anılan bir cisim kaydetti; 2015'te Doğu Kıyısı açıklarında iki video daha çekildi.", "Savunma Bakanlığı üç videoyu 2020'de yayımladı ve görüntülerin hassas bir kabiliyeti açığa çıkarmadığını belirtti. Cisimler resmi olarak tanımlanamadı."],
+    links: [["AARO: Resmi UAP görüntüleri", "https://www.aaro.mil/UAP-Cases/Official-UAP-Imagery/"]] },
+  { id: "geipan", topic: "ufo", year: 2007, date: "Mart 2007", title: "Fransa arşivlerini açıyor", agency: "CNES · GEIPAN", ref: "geipan.fr", status: "closed",
+    loc: "Toulouse, Fransa", lat: 43.6, lon: 1.44,
+    sum: "Fransız uzay ajansı, jandarma raporlarına dayanan PAN dosyalarını internette yayımlayan ilk kurum oldu.",
+    body: ["CNES bünyesindeki GEIPAN, 1977'den beri topladığı 'tanımlanamayan hava-uzay olayı' (PAN) dosyalarını 2007'de çevrimiçi açtı.", "Vakalar A'dan D'ye sınıflandırılıyor; D sınıfı, iyi belgelenmesine rağmen açıklanamayan küçük bir azınlığı kapsıyor."],
+    links: [["GEIPAN arşivi", "https://www.cnes-geipan.fr/"]] },
+  { id: "huron", topic: "ufo", year: 2023, date: "12 Şubat 2023", title: "Huron Gölü düşürmesi", agency: "DoD", ref: "PURSUE Release 02", status: "open",
+    loc: "Huron Gölü, ABD–Kanada", lat: 45.0, lon: -82.5,
+    sum: "Bir F-16, göl üzerinde sekizgen bir cismi füzeyle düşürdü; enkaz hiç bulunamadı.",
+    body: ["Çin balonu krizinin ardından aynı hafta içinde düşürülen üç cisimden sonuncusuydu.", "İlgili görüntü ve kayıtlar Mayıs 2026'daki ikinci PURSUE yayınında yer aldı."],
+    links: [["PURSUE arşivi (war.gov/UFO)", "https://www.war.gov/ufo/"]] },
+  { id: "pursue", topic: "ufo", year: 2026, date: "8 Mayıs 2026 →", title: "PURSUE: açıklama dalgası", agency: "Savaş Bakanlığı", ref: "war.gov/UFO", status: "open",
+    loc: "Pentagon, Virginia", lat: 38.87, lon: -77.06,
+    sum: "FBI, CIA, NASA ve AARO kayıtlarını birlikte açan, hâlâ süren yayın programı. Yedi paket yayımlandı.",
+    body: ["Başkanlık talimatıyla kurulan PURSUE, ilk paketini 8 Mayıs 2026'da yayımladı. Paketler 3–6 hafta arayla geliyor; yedincisi 23 Ekim 2026'da çıktı.", "AARO, incelenen kayıtların hiçbirinde dünya dışı faaliyete dair doğrulanabilir kanıt bulunmadığını söylüyor. Yeni paketler 'Telsiz' akışına düşer."],
+    links: [["PURSUE arşivi (war.gov/UFO)", "https://www.war.gov/ufo/"], ["AARO", "https://www.aaro.mil/"]] },
+
+  /* ---------- Soğuk Savaş ---------- */
+  { id: "artichoke", topic: "soguk", year: 1951, date: "1951 – 1953", title: "Bluebird ve Artichoke", agency: "CIA", ref: "MKUltra öncülleri", status: "closed",
+    loc: "Langley, Virginia", lat: 38.93, lon: -77.25,
+    sum: "CIA'nın sorgularda hipnoz, ilaç ve yalıtım kullanımını araştırdığı, MKUltra'ya zemin hazırlayan programlar.",
+    body: ["Kore Savaşı'ndaki 'beyin yıkama' korkusunun ardından CIA, sorgu tekniklerini ve bunlara karşı savunmayı incelemek için Bluebird'ü, ardından Artichoke'u başlattı.", "Programların belgeleri sonraki yıllarda bilgi edinme yoluyla yayımlandı; çalışmalar 1953'te MKUltra çatısı altında sürdü."],
+    links: [["CIA Reading Room araması", "https://www.cia.gov/readingroom/search/site/ARTICHOKE"]] },
+  { id: "mkultra", topic: "soguk", year: 1953, date: "1953 – 1973", title: "MKUltra", agency: "CIA", ref: "Senato oturumu · 3 Ağustos 1977", status: "closed",
+    loc: "Langley, Virginia (CIA)", lat: 38.95, lon: -77.15,
+    sum: "CIA'nın davranış değiştirme ve zihin kontrolü araştırmaları; çoğu kayıt 1973'te imha edildi.",
+    body: ["MKUltra, CIA'nın uyuşturucu, hipnoz ve psikolojik yöntemlerle davranış değiştirmeyi araştırdığı programdı. Deneylerin bir kısmı bilgisi olmayan kişiler üzerinde yapıldı.", "Kayıtların büyük bölümü 1973'te Direktör Richard Helms'in emriyle imha edildi. 1977'de bulunan mali belgeler, aynı yıl 3 Ağustos'taki Senato oturumuna yol açtı; Direktör Stansfield Turner 149 alt projeyi ve 80 kurumu açıkladı."],
+    links: [["Senato oturum tutanağı (PDF)", "https://www.intelligence.senate.gov/wp-content/uploads/2024/08/sites-default-files-hearings-95mkultra.pdf"], ["CIA Reading Room kaydı", "https://www.cia.gov/readingroom/document/00163357"]] },
+  { id: "a119", topic: "soguk", year: 1958, date: "1958 – 1959", title: "Project A119: Ay'a nükleer bomba", agency: "USAF", ref: "Armour Research Foundation", status: "closed",
+    loc: "Chicago, Illinois", lat: 41.83, lon: -87.62,
+    sum: "Sputnik'in ardından Hava Kuvvetleri, Ay yüzeyinde Dünya'dan görülebilecek bir nükleer patlamanın fizibilitesini inceletti.",
+    body: ["Gizli çalışma, patlamanın bilimsel verisini ve propaganda etkisini değerlendirdi. Genç Carl Sagan da ekipteki bilim insanları arasındaydı.", "Proje uygulanmadan rafa kaldırıldı ve varlığı ancak 2000'de, çalışmanın yöneticisi Leonard Reiffel'in açıklamasıyla duyuldu."],
+    links: [["Project A119 (ansiklopedi)", "https://en.wikipedia.org/wiki/Project_A119"]] },
+  { id: "horizon", topic: "soguk", year: 1959, date: "Haziran 1959", title: "Project Horizon: Ay üssü", agency: "US Army", ref: "Ordu fizibilite raporu", status: "closed",
+    loc: "Redstone Cephaneliği, Alabama", lat: 34.68, lon: -86.65,
+    sum: "ABD Ordusu, 1966'ya kadar Ay'da 12 kişilik askeri karakol kurma planı hazırladı.",
+    body: ["Rapor, Ay'ın askeri önemini ve Sovyetlerden önce orada bulunma gerekliliğini savunuyordu; yüzlerce roket fırlatışı öngörülüyordu.", "Plan onaylanmadı; uzay programı sivil NASA'ya devredildi. Rapor sonradan gizlilikten çıkarıldı."],
+    links: [["Project Horizon (ansiklopedi)", "https://en.wikipedia.org/wiki/Project_Horizon"]] },
+  { id: "iceworm", topic: "soguk", year: 1960, date: "1959 – 1967", title: "Project Iceworm", agency: "US Army", ref: "Camp Century", status: "closed",
+    loc: "Camp Century, Grönland", lat: 77.18, lon: -61.13,
+    sum: "Bilimsel üs görünümündeki buz altı kampı, yüzlerce nükleer füze için tünel ağı planının deneme alanıydı.",
+    body: ["Ordu, Grönland buz örtüsünün altına bir nükleer reaktörle çalışan Camp Century'yi kurdu. Kamuoyuna araştırma istasyonu olarak tanıtıldı.", "Buzun beklenenden hızlı hareket etmesi planı uygulanamaz kıldı. Gerçek amaç 1990'larda Danimarka'da yapılan resmi incelemeyle geniş biçimde duyuldu."],
+    links: [["Atomic Heritage Foundation: Camp Century", "https://ahf.nuclearmuseum.org/ahf/history/camp-century/"]] },
+  { id: "northwoods", topic: "soguk", year: 1962, date: "13 Mart 1962", title: "Operation Northwoods", agency: "Genelkurmay (JCS)", ref: "JFK kayıtları · 1997", status: "closed",
+    loc: "Hedef: Küba", lat: 23.1, lon: -82.4,
+    sum: "Genelkurmay, Küba'ya müdahaleye gerekçe yaratmak için sahte saldırılar öneren bir plan sundu. Kennedy yönetimi reddetti.",
+    body: ["Belge, ABD'ye yönelik düzmece olaylar tasarlayıp bunları Küba'ya yüklemeyi öneren seçenekler sıralıyordu.", "Plan uygulanmadı. Belge 1997'de JFK Suikastı Kayıtları İnceleme Kurulu tarafından kamuya açıldı."],
+    links: [["NARA belgesi (Black Vault kopyası, PDF)", "https://documents3.theblackvault.com/documents/jfkfiles/northwoods-nara.pdf"]] },
+  { id: "acoustic", topic: "soguk", year: 1965, date: "1960'lar", title: "Acoustic Kitty", agency: "CIA", ref: "CIA Reading Room", status: "closed",
+    loc: "Washington D.C.", lat: 38.85, lon: -76.95,
+    sum: "Bir kediyi dinleme cihazı taşıyan canlı casusa dönüştürme girişimi. CIA notu projeyi uygulanamaz buldu.",
+    body: ["CIA Bilim ve Teknoloji Müdürlüğü, eğitilmiş kedilerin konuşmaları dinlemek için kullanılıp kullanılamayacağını araştırdı.", "Yayımlanan değerlendirme notu, yöntemin sahada pratik olmadığı sonucuna vardı; program sonlandırıldı."],
+    links: [["CIA Reading Room araması", "https://www.cia.gov/readingroom/search/site/acoustic%20kitty"]] },
+  { id: "azorian", topic: "soguk", year: 1974, date: "Temmuz – Ağustos 1974", title: "Project Azorian", agency: "CIA", ref: "Hughes Glomar Explorer", status: "closed",
+    loc: "Kuzey Pasifik", lat: 40.1, lon: 179.9,
+    sum: "CIA, batmış Sovyet denizaltısı K-129'u 5.000 metre derinlikten gizlice çıkarmaya çalıştı.",
+    body: ["Kapak hikâyesi derin deniz madenciliği olan Hughes Glomar Explorer gemisi, 1968'de batan K-129'un bir bölümünü yüzeye çıkardı.", "Operasyon basına sızınca CIA, ne doğrulayan ne de yalanlayan 'Glomar yanıtı'nı kullandı. Ayrıntılar 2010'da kısmen açıklandı."],
+    links: [["CIA Reading Room araması", "https://www.cia.gov/readingroom/search/site/AZORIAN"]] },
+
+  /* ---------- Paranormal deneyler ---------- */
+  { id: "dia1972", topic: "psi", year: 1972, date: "31 Ocak 1972", title: "Sovyet 'psikotronik' raporu", agency: "DIA", ref: "Controlled Offensive Behavior – USSR", status: "closed",
+    loc: "SSCB (inceleme konusu)", lat: 55.75, lon: 37.62,
+    sum: "ABD istihbaratı, Sovyetlerin telepati ve psikokinezi araştırmalarını askeri tehdit olarak değerlendirdi.",
+    body: ["DIA raporu, Sovyet ve Doğu Bloku laboratuvarlarındaki parapsikoloji çalışmalarını derledi ve bunların uzaktan etki amacıyla kullanılabileceği endişesini dile getirdi.", "Bu rapor, ABD'nin kendi psişik programlarını başlatmasının gerekçelerinden biri oldu. Belge Stargate arşivinde yayımlandı."],
+    links: [["CIA Reading Room kaydı", "https://www.cia.gov/readingroom/print/269313"]] },
+  { id: "geller", topic: "psi", year: 1973, date: "Ağustos 1973", title: "Uri Geller SRI testleri", agency: "CIA · SRI", ref: "CIA-RDP96-00791R000100480003-3", status: "disputed",
+    loc: "Stanford Research Institute, Kaliforniya", lat: 37.45, lon: -122.18,
+    sum: "CIA'nın desteklediği laboratuvar deneylerinde Geller'den kapalı odadaki çizimleri tahmin etmesi istendi.",
+    body: ["SRI'daki deney kayıtlarına göre Geller bazı çizimleri dikkat çekici benzerlikle yeniden üretti; araştırmacılar sonuçları 'ikna edici' olarak raporladı.", "Şüpheciler kontrol koşullarını eleştirdi ve sihirbazlık yöntemleriyle açıklanabileceğini savundu. Belgeler 2017'de çevrimiçi Reading Room'a eklendi."],
+    links: [["CIA Reading Room: Geller deneyleri", "https://www.cia.gov/readingroom/document/cia-rdp96-00791r000100480003-3"]] },
+  { id: "stargate", topic: "psi", year: 1978, date: "1978 – 1995", title: "Stargate: uzaktan görü", agency: "CIA · DIA", ref: "CIA-RDP96-00791R000100040003-1", status: "closed",
+    loc: "Fort Meade, Maryland", lat: 39.11, lon: -76.74,
+    sum: "Grill Flame, Sun Streak ve Stargate adlarıyla süren psişik casusluk programı. 1995'te kapatıldı.",
+    body: ["ABD ordusu ve DIA, 'uzaktan görü' ile uzak hedefler hakkında bilgi toplanıp toplanamayacağını yıllarca test etti; araştırmaların bir kısmı SRI'da yürütüldü.", "1995'teki geriye dönük değerlendirme, istihbarat açısından işe yarar sonuç üretilmediğini belirtti ve program kapatıldı. CIA arşivi Reading Room'da toplu olarak yayımladı."],
+    links: [["CIA Reading Room: STARGATE koleksiyonu", "https://www.cia.gov/readingroom/collection/stargate"], ["Senato değerlendirme belgesi", "https://www.cia.gov/readingroom/node/303915"]] },
+  { id: "gateway", topic: "psi", year: 1983, date: "Haziran 1983", title: "Gateway Süreci değerlendirmesi", agency: "US Army", ref: "Stargate koleksiyonu", status: "disputed",
+    loc: "Fort Meade, Maryland", lat: 39.25, lon: -76.55,
+    sum: "Bir ordu subayının, Monroe Enstitüsü'nün bilinç tekniklerini fizik terimleriyle açıklamaya çalıştığı rapor.",
+    body: ["Rapor, ses dalgalarıyla beyin yarıkürelerini eşzamanlamayı amaçlayan 'Gateway' eğitimini istihbarat amaçlı kullanılabilirlik açısından değerlendirdi.", "Belge 2003'te kamuya açıldı; 2017'den sonra çevrimiçi Reading Room'da geniş ilgi gördü. Bilimsel geçerliliği tartışmalı."],
+    links: [["CIA Reading Room: STARGATE koleksiyonu", "https://www.cia.gov/readingroom/collection/stargate"]] },
+
+  /* ---------- Çözülmemiş vakalar ---------- */
+  { id: "flight19", topic: "cozulmemis", year: 1945, date: "5 Aralık 1945", title: "Flight 19", agency: "US Navy", ref: "Donanma soruşturma kurulu", status: "open",
+    loc: "Bahamalar açıkları, Atlantik", lat: 26.8, lon: -78.6,
+    sum: "Beş Avenger torpido uçağı eğitim uçuşunda kayboldu; arama uçağı da geri dönmedi. Bermuda Şeytan Üçgeni efsanesinin başlangıcı.",
+    body: ["Fort Lauderdale'den kalkan filo, liderin pusulalarının arızalandığını bildirmesinin ardından yönünü kaybetti. Kurtarma için gönderilen PBM Mariner de kayboldu.", "Donanmanın soruşturması önce lideri sorumlu tuttu, aile itirazı üzerine kayıt 'nedenleri bilinmiyor' olarak değiştirildi. Enkaz bulunamadı."],
+    links: [["Flight 19 (ansiklopedi)", "https://en.wikipedia.org/wiki/Flight_19"]] },
+  { id: "somerton", topic: "cozulmemis", year: 1948, date: "1 Aralık 1948", title: "Somerton Adamı (Tamam Shud)", agency: "Güney Avustralya Polisi", ref: "Soğuk dosya", status: "disputed",
+    loc: "Somerton Plajı, Adelaide", lat: -34.98, lon: 138.51,
+    sum: "Plajda ölü bulunan adamın cebinde 'Tamam Shud' yazılı kâğıt vardı. 2022'de DNA ile kimliği belirlendiği açıklandı, ölüm nedeni hâlâ bilinmiyor.",
+    body: ["Adamın kimliği, kıyafet etiketleri kesildiği için onlarca yıl tespit edilemedi; şifreli not ve casusluk teorileri vakayı ünlü yaptı.", "Adelaide Üniversitesi'nden Prof. Derek Abbott 2022'de genetik soy ağacı yöntemiyle adamın Melbourne'lü Carl Webb olduğunu açıkladı. Polis soruşturması sürüyor; nasıl öldüğü çözülmedi."],
+    links: [["Smithsonian: Kimlik açıklaması", "https://www.smithsonianmag.com/smart-news/have-scholars-finally-identified-the-mysterious-somerton-man-180980540/"]] },
+  { id: "dyatlov", topic: "cozulmemis", year: 1959, date: "1–2 Şubat 1959", title: "Dyatlov Geçidi", agency: "Rusya Başsavcılığı", ref: "2019 yeniden soruşturma", status: "disputed",
+    loc: "Kholat Syakhl, Kuzey Ural, Rusya", lat: 61.75, lon: 59.45,
+    sum: "Dokuz deneyimli kayakçı çadırlarını içeriden keserek kaçtı ve öldü. 1959 dosyası 'karşı konulamaz doğal güç' diyerek kapandı.",
+    body: ["Ural Politeknik öğrencilerinden oluşan grup, eksi derecelerde yetersiz giysilerle çadırdan uzaklaştı. Bazılarında açıklanması güç ağır yaralanmalar vardı.", "Rusya Başsavcılığı 2019'da soruşturmayı yeniden açtı ve 2020'de çığ, düşük görüş ve hipotermi sonucuna vardı. Kurbanların yakınları bu sonucu kabul etmedi; 2021'deki bilimsel model çığı mümkün gösterdi ama tüm soruları cevaplamadı."],
+    links: [["TASS: Savcılık açıklaması", "https://tass.com/emergencies/1177345"]] },
+  { id: "zodiac", topic: "cozulmemis", year: 1969, date: "1968 – 1969", title: "Zodyak Katili", agency: "FBI", ref: "FBI Vault · Zodiac Killer", status: "open",
+    loc: "Vallejo, Kaliforniya", lat: 38.1, lon: -122.25,
+    sum: "Basına şifreli mektuplar gönderen seri katil hiç yakalanmadı. 340 karakterlik şifre 51 yıl sonra amatörlerce çözüldü.",
+    body: ["Kuzey Kaliforniya'daki cinayetlerin faili kendine 'Zodyak' dedi ve gazetelere şifreler yolladı. FBI, yerel polise kriptografi ve laboratuvar desteği verdi.", "2020'de üç amatör şifre çözücü 340 karakterlik mesajı çözdü, FBI doğruladı. Katilin kimliği resmi olarak hâlâ belirlenmedi."],
+    links: [["FBI Vault: Zodiac Killer", "https://vault.fbi.gov/The%20Zodiac%20Killer"]] },
+  { id: "dbcooper", topic: "cozulmemis", year: 1971, date: "24 Kasım 1971", title: "D.B. Cooper kaçırması", agency: "FBI", ref: "NORJAK dosyası", status: "open",
+    loc: "Portland – Seattle uçuş hattı", lat: 45.9, lon: -122.7,
+    sum: "Fidyeyi alıp uçaktan paraşütle atlayan adam hiç bulunamadı. FBI 45 yıl sonra aktif soruşturmayı askıya aldı.",
+    body: ["Kendini Dan Cooper olarak tanıtan bir yolcu, Northwest Orient'in 305 sefer sayılı uçağını kaçırdı, 200.000 dolar fidye aldı ve gece Washington eyaleti üzerinde atladı.", "FBI 2016'da aktif soruşturmayı durdurdu; dosya ABD'deki tek çözülmemiş ticari uçak kaçırması olarak duruyor."],
+    links: [["FBI: D.B. Cooper vakası", "https://www.fbi.gov/history/famous-cases/db-cooper-hijacking"]] },
+  { id: "mh370", topic: "cozulmemis", year: 2014, date: "8 Mart 2014", title: "MH370", agency: "Malezya Hükümeti", ref: "Güvenlik soruşturması raporu · 2018", status: "open",
+    loc: "Güney Hint Okyanusu (tahmini)", lat: -35, lon: 93,
+    sum: "239 kişiyi taşıyan Boeing 777 radar ekranlarından kayboldu. Resmi rapor kaybın nedenini belirleyemedi.",
+    body: ["Kuala Lumpur'dan Pekin'e giden uçak transponderı kapandıktan sonra rotasından saptı; uydu verileri uçuşun saatlerce güneye sürdüğünü gösterdi.", "Malezya'nın 2018 güvenlik soruşturması raporu kesin bir neden açıklayamadı. Kıyılara vuran birkaç enkaz parçası dışında uçak bulunamadı; deniz tabanı aramaları dönem dönem yeniden başlatıldı."],
+    links: [["MH370 (ansiklopedi)", "https://en.wikipedia.org/wiki/Malaysia_Airlines_Flight_370"]] },
+];
+
+/* ---------- durum ---------- */
+let topic = "all", feedKind = "belge", feedItems = [];
+let follows = new Set();
+try { follows = new Set(JSON.parse(localStorage.getItem("bd-follows") || "[]")); } catch (e) {}
+try { const t = localStorage.getItem("bd-topic"); if (t && TOPICS.some(x => x.id === t)) topic = t; } catch (e) {}
+const saveFollows = () => { try { localStorage.setItem("bd-follows", JSON.stringify([...follows])); } catch (e) {} };
+const tc = id => `var(--c-${id})`;
+const visible = () => CASES.filter(c => topic === "all" ? true : topic === "takip" ? follows.has(c.id) : c.topic === topic);
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+function renderTabs() {
+  const el = document.getElementById("tabs");
+  el.innerHTML = TOPICS.map(t => {
+    const n = t.id === "all" ? CASES.length : t.id === "takip" ? follows.size : CASES.filter(c => c.topic === t.id).length;
+    const style = ["ufo", "soguk", "psi", "cozulmemis"].includes(t.id) ? ` style="--c:${tc(t.id)}"` : "";
+    return `<button class="tab" id="tab-${t.id}" data-t="${t.id}" aria-pressed="${t.id === topic}"${style}>${ICONS[t.id]}${esc(t.name)} <span class="n">${n}</span></button>`;
+  }).join("");
+  el.querySelectorAll(".tab").forEach(b => b.onclick = () => { topic = b.dataset.t; try { localStorage.setItem("bd-topic", topic); } catch (e) {} renderAll(); });
+}
+
+function renderStats() {
+  const agencies = new Set(CASES.map(c => c.agency)).size;
+  const open = CASES.filter(c => c.status === "open").length;
+  document.getElementById("stats").innerHTML =
+    `<span class="pill"><b>${CASES.length}</b> dosya</span><span class="pill"><b>${agencies}</b> kurum</span><span class="pill"><b>${open}</b> açık vaka</span><span class="pill"><b>${Math.min(...CASES.map(c => c.year))}–${new Date().getFullYear()}</b></span>`;
+}
+
+function renderRadar() {
+  const r = document.getElementById("radar");
+  r.querySelectorAll(".blip").forEach(b => b.remove());
+  const minY = 1940, maxY = new Date().getFullYear();
+  CASES.forEach(c => {
+    const ang = ((c.lon + 180) / 360) * 360;            // boylam → açı
+    const rad = 14 + ((c.year - minY) / (maxY - minY)) * 34; // yıl → yarıçap (%)
+    const a = (ang - 90) * Math.PI / 180;
+    const b = document.createElement("i");
+    b.className = "blip";
+    b.style.left = (50 + rad * Math.cos(a)) + "%";
+    b.style.top = (50 + rad * Math.sin(a)) + "%";
+    b.style.setProperty("--c", tc(c.topic));
+    b.style.animationDelay = (-(5 - (ang / 360) * 5)) + "s";
+    r.appendChild(b);
+  });
+}
+
+function renderTimeline() {
+  const list = visible().slice().sort((a, b) => a.year - b.year || a.title.localeCompare(b.title, "tr"));
+  document.getElementById("tlCount").textContent = `${list.length} kayıt`;
+  const el = document.getElementById("timeline");
+  if (!list.length) {
+    el.innerHTML = `<p class="empty">${topic === "takip" ? "Henüz takip ettiğin dosya yok. Bir dosyayı açıp “Takip et”e dokun; burada toplanır." : "Bu başlıkta kayıt yok."}</p>`;
+    return;
+  }
+  let html = "", dec = null, open = false;
+  for (const c of list) {
+    const d = Math.floor(c.year / 10) * 10;
+    if (d !== dec) { if (open) html += `</div>`; dec = d; html += `<div class="decade">${d}'ler</div><div class="cards">`; open = true; }
+    html += `<button class="case glass" data-id="${c.id}" style="--c:${tc(c.topic)}">
+      ${ICONS[c.topic]}
+      <div class="c-main">
+        <p class="c-title">${follows.has(c.id) ? "★ " : ""}${esc(c.title)}</p>
+        <p class="c-sum">${esc(c.sum)}</p>
+        <div class="meta"><span class="chip agency">${esc(c.agency)}</span><span class="status ${c.status}">${STATUS[c.status]}</span><span class="chip">${esc(c.ref)}</span></div>
+      </div>
+      <div class="c-year">${c.year}<small>${esc(c.date)}</small></div></button>`;
+  }
+  html += `</div>`;
+  el.innerHTML = html;
+  el.querySelectorAll(".case").forEach(b => b.onclick = () => openCase(b.dataset.id));
+}
+
+/* ---------- harita ---------- */
+let pinsSel = null;
+async function initMap() {
+  const box = document.getElementById("map");
+  if (!window.d3 || !window.topojson) { box.innerHTML = `<div class="map-empty">Harita kütüphanesi yüklenemedi. Kronoloji aşağıda.</div>`; return; }
+  try {
+    const world = await (await fetch("world.json")).json();
+    const W = 960, H = 480;
+    const proj = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: "Sphere" });
+    const path = d3.geoPath(proj);
+    box.innerHTML = "";
+    const svg = d3.select(box).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img").attr("aria-label", "Dosyaların dünya haritası");
+    svg.append("path").attr("class", "grat").attr("d", path(d3.geoGraticule10()));
+    svg.append("path").attr("class", "land").attr("d", path(topojson.feature(world, world.objects.countries)));
+    const tip = d3.select(box).append("div").attr("class", "map-tip glass").attr("hidden", "");
+    const pins = svg.append("g").selectAll("g.pin").data(CASES).join("g").attr("class", "pin").attr("tabindex", 0).attr("role", "button")
+      .attr("aria-label", d => `${d.title}, ${d.year}`)
+      .attr("style", d => `--c:${tc(d.topic)}`)
+      .attr("transform", d => `translate(${proj([d.lon, d.lat])})`)
+      .on("click", (e, d) => openCase(d.id))
+      .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCase(d.id); } })
+      .on("pointerenter focus", (e, d) => {
+        const [x, y] = proj([d.lon, d.lat]); const r = box.getBoundingClientRect(); const k = (r.width - 12) / W;
+        tip.html(`<b>${esc(d.title)}</b><br><span style="color:var(--muted)">${d.year} · ${esc(d.loc)}</span>`).attr("hidden", null)
+          .style("left", Math.max(6, Math.min(x * k + 14, r.width - 260)) + "px").style("top", Math.max(y * k - 56, 6) + "px");
+      })
+      .on("pointerleave blur", () => tip.attr("hidden", ""));
+    pins.append("circle").attr("class", "ripple").attr("r", 6).style("animation-delay", (d, i) => `${-(i * 0.37) % 2.6}s`);
+    pins.append("circle").attr("class", "core").attr("r", 5);
+    d3.select(box).append("div").attr("class", "legend").html(
+      ["ufo", "soguk", "psi", "cozulmemis"].map(t => `<span style="--c:${tc(t)}"><i></i>${TOPICS.find(x => x.id === t).name}</span>`).join(""));
+    pinsSel = pins; dimPins();
+  } catch (e) {
+    box.innerHTML = `<div class="map-empty">Harita verisi açılamadı. Kronoloji aşağıda.</div>`;
+  }
+}
+function dimPins() { if (!pinsSel) return; const ids = new Set(visible().map(c => c.id)); pinsSel.classed("dim", d => !ids.has(d.id)); }
+
+/* ---------- dosya çekmecesi ---------- */
+function openCase(id) {
+  const c = CASES.find(x => x.id === id); if (!c) return;
+  const dlg = document.getElementById("dlg"), dr = document.getElementById("drawer");
+  const tname = TOPICS.find(t => t.id === c.topic).name;
+  const rel = CASES.filter(x => x.topic === c.topic && x.id !== c.id).sort((a, b) => Math.abs(a.year - c.year) - Math.abs(b.year - c.year)).slice(0, 4);
+  dr.style.setProperty("--c", tc(c.topic));
+  dr.innerHTML = `
+    <div class="d-top">${ICONS[c.topic]}<button class="close" id="closeBtn">Kapat ✕</button></div>
+    <div><div class="kicker">${esc(tname)} · ${esc(c.ref)}</div><h2>${esc(c.title)}</h2></div>
+    <span class="stampline">${STAMP[c.status]}</span>
+    <dl class="facts glass">
+      <dt>Tarih</dt><dd>${esc(c.date)}</dd><dt>Yer</dt><dd>${esc(c.loc)}</dd>
+      <dt>Kurum</dt><dd>${esc(c.agency)}</dd><dt>Durum</dt><dd>${STATUS[c.status]}</dd>
+    </dl>
+    <div class="body">${c.body.map((p, i) => `<p>${esc(p)}<span class="bar" style="animation-delay:${0.25 + i * 0.35}s" aria-hidden="true"></span></p>`).join("")}</div>
+    <div class="src">
+      ${c.links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}
+      <button class="btn solid" id="followBtn">${follows.has(c.id) ? "★ Takipte" : "☆ Takip et"}</button>
+    </div>
+    ${rel.length ? `<div class="related"><h3>Aynı başlıkta</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${r.year} · ${esc(r.title)}</button>`).join("")}</div></div>` : ""}`;
+  document.getElementById("closeBtn").onclick = () => dlg.close();
+  document.getElementById("followBtn").onclick = (e) => {
+    follows.has(c.id) ? follows.delete(c.id) : follows.add(c.id); saveFollows();
+    e.target.textContent = follows.has(c.id) ? "★ Takipte" : "☆ Takip et";
+    renderTabs(); renderTimeline(); dimPins();
+  };
+  dr.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => openCase(b.dataset.rel));
+  dr.scrollTop = 0;
+  if (location.hash !== "#dosya-" + c.id) history.replaceState(null, "", "#dosya-" + c.id);
+  if (!dlg.open) dlg.showModal();
+}
+const dlgEl = document.getElementById("dlg");
+dlgEl.addEventListener("click", e => { if (e.target === dlgEl) dlgEl.close(); });
+dlgEl.addEventListener("close", () => { if (location.hash.startsWith("#dosya-")) history.replaceState(null, "", location.pathname + location.search); });
+function openFromHash() { const m = location.hash.match(/^#dosya-([a-z0-9-]+)$/); if (m) openCase(m[1]); }
+window.addEventListener("hashchange", openFromHash);
+
+/* ---------- canlı akış ---------- */
+const fmtDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }); };
+const shortDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("tr-TR", { day: "numeric", month: "short" }); };
+
+function renderFeed() {
+  const el = document.getElementById("feed");
+  const list = feedItems.filter(x => x.kind === feedKind).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  if (!list.length) { el.innerHTML = `<p class="empty">${feedKind === "belge" ? "Henüz kayıtlı yeni belge yok. Teşkilatlar yeni bir paket yayımladığında burada görünecek." : "Gündem boş. Konuyla ilgili gelişmeler burada akar."}</p>`; return; }
+  const recent = Date.now() - 14 * 864e5;
+  el.innerHTML = list.map((x, i) => `<article class="item" style="animation-delay:${i * 40}ms">
+      <time datetime="${esc(x.date)}">${fmtDate(x.date)} · ${esc(x.source || "")}</time>
+      <h3>${esc(x.title)}${new Date(x.date).getTime() > recent ? '<span class="new">YENİ</span>' : ""}</h3>
+      ${x.summary ? `<p>${esc(x.summary)}</p>` : ""}
+      ${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">Kaynağa git ↗</a>` : ""}
+    </article>`).join("");
+}
+function renderTicker() {
+  const list = feedItems.slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 8);
+  const el = document.getElementById("ticker");
+  if (!list.length) { el.innerHTML = `<span>Yeni yayın bekleniyor…</span>`; return; }
+  const one = list.map(x => `<span><b>${shortDate(x.date)}</b>${esc(x.title)}</span>`).join("");
+  el.innerHTML = one + one; // kesintisiz döngü
+}
+document.querySelectorAll(".ftab").forEach(b => b.onclick = () => {
+  feedKind = b.dataset.kind;
+  document.querySelectorAll(".ftab").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderFeed();
+});
+
+async function initFeed() {
+  const foot = document.getElementById("feedFoot");
+  let last = "";
+  async function load() {
+    try {
+      const r = await fetch("feed.json?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) throw new Error(r.status);
+      const data = await r.json();
+      const sig = JSON.stringify(data);
+      if (sig !== last) {
+        last = sig;
+        feedItems = Array.isArray(data.items) ? data.items : [];
+        renderFeed(); renderTicker();
+        if (data.lastChecked) document.getElementById("updated").textContent = `Son kontrol: ${fmtDate(data.lastChecked)}`;
+      }
+      foot.textContent = `${feedItems.length} kayıt · her 5 dakikada bir yeniden kontrol edilir.`;
+    } catch (e) {
+      if (!feedItems.length) {
+        document.getElementById("feed").innerHTML = `<p class="empty">Akış şu an yüklenemedi. Biraz sonra kendiliğinden yeniden denenecek.</p>`;
+        document.getElementById("ticker").innerHTML = `<span>Akış bekleniyor…</span>`;
+      }
+      foot.textContent = "Akışa ulaşılamadı; 5 dakika içinde yeniden denenecek.";
+    }
+  }
+  await load();
+  setInterval(() => { if (!document.hidden) load(); }, 5 * 60 * 1000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
+}
+
+/* ---------- yıldız alanı ---------- */
+function initStars() {
+  const cv = document.getElementById("stars"); const ctx = cv.getContext && cv.getContext("2d"); if (!ctx) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let stars = [], W = 0, H = 0, shoot = null, running = false;
+  const col = () => getComputedStyle(document.documentElement).getPropertyValue("--fg").trim() || "#fff";
+  function size() {
+    const dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    stars = Array.from({ length: Math.round(W * H / 9000) }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.1 + .2, p: Math.random() * 6.28, s: .4 + Math.random() * 1.2 }));
+  }
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H); ctx.fillStyle = col();
+    for (const s of stars) { ctx.globalAlpha = .15 + .45 * (0.5 + 0.5 * Math.sin(t / 1000 * s.s + s.p)); ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.28); ctx.fill(); }
+    if (!shoot && Math.random() < .003) shoot = { x: Math.random() * W * .7, y: Math.random() * H * .4, l: 0 };
+    if (shoot) {
+      shoot.l += 14; const g = ctx.createLinearGradient(shoot.x, shoot.y, shoot.x + shoot.l, shoot.y + shoot.l * .4);
+      g.addColorStop(0, "transparent"); g.addColorStop(1, col()); ctx.globalAlpha = Math.max(0, 1 - shoot.l / 260);
+      ctx.strokeStyle = g; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(shoot.x, shoot.y); ctx.lineTo(shoot.x + shoot.l, shoot.y + shoot.l * .4); ctx.stroke();
+      if (shoot.l > 260) shoot = null;
+    }
+    ctx.globalAlpha = 1;
+    if (!reduce && !document.hidden) requestAnimationFrame(draw); else running = false;
+  }
+  const start = () => { if (!running) { running = true; requestAnimationFrame(draw); } };
+  size(); addEventListener("resize", size);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && !reduce) start(); });
+  start();
+}
+
+function renderAll() { renderTabs(); renderTimeline(); dimPins(); }
+renderStats(); renderRadar(); renderAll(); initMap(); initFeed(); initStars(); openFromHash();
+</script>
+</body>
+</html>
