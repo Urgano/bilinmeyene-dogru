@@ -229,6 +229,7 @@ dialog[open] .drawer { animation: drawerIn .35s cubic-bezier(.2, .8, .2, 1); }
 .ask h3 { margin: 0; font-family: var(--f-display); font-size: 16px; display: flex; align-items: center; gap: 8px; }
 .ask form { display: flex; gap: 8px; flex-wrap: wrap; }
 .ask input { flex: 1 1 220px; min-width: 0; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; font: inherit; }
+.ask-note { margin: 0; font-size: 12.5px; color: var(--muted); }
 .answer { white-space: pre-wrap; font-size: 14px; color: var(--fg); }
 .typing { display: inline-flex; gap: 4px; } .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bob 1s infinite; } .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
 .related { display: grid; gap: 8px; }
@@ -627,6 +628,12 @@ function openCase(id) {
       ${c.links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}
       <button class="btn solid" id="followBtn">${follows.has(c.id) ? "★ Takipte" : "☆ Takip et"}</button>
     </div>
+    <div class="ask glass" id="askBox">
+      <h3>${ICONS.psi}Arşivciye sor</h3>
+      <form id="askForm"><input id="askInput" placeholder="Örn. Bu dosyada en çok tartışılan nokta ne?" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">Sor</button></form>
+      <div class="answer" id="answer" hidden></div>
+      <p class="ask-note" id="askNote"></p>
+    </div>
     ${rel.length ? `<div class="related"><h3>Aynı başlıkta</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${r.year} · ${esc(r.title)}</button>`).join("")}</div></div>` : ""}`;
   document.getElementById("closeBtn").onclick = () => dlg.close();
   document.getElementById("followBtn").onclick = (e) => {
@@ -636,14 +643,49 @@ function openCase(id) {
   };
   dr.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => openCase(b.dataset.rel));
   dr.scrollTop = 0;
+  setupAsk(c);
   if (location.hash !== "#dosya-" + c.id) history.replaceState(null, "", "#dosya-" + c.id);
   if (!dlg.open) dlg.showModal();
 }
 const dlgEl = document.getElementById("dlg");
 dlgEl.addEventListener("click", e => { if (e.target === dlgEl) dlgEl.close(); });
-dlgEl.addEventListener("close", () => { if (location.hash.startsWith("#dosya-")) history.replaceState(null, "", location.pathname + location.search); });
+dlgEl.addEventListener("close", () => { if (askAbort) askAbort.abort(); if (location.hash.startsWith("#dosya-")) history.replaceState(null, "", location.pathname + location.search); });
 function openFromHash() { const m = location.hash.match(/^#dosya-([a-z0-9-]+)$/); if (m) openCase(m[1]); }
 window.addEventListener("hashchange", openFromHash);
+
+/* ---------- Arşivciye sor ----------
+   ASK_ENDPOINT boşsa soru, dosya bilgileriyle birlikte Claude'da yeni sohbet olarak açılır.
+   Cloudflare Worker kurulunca adresini buraya yazın; yanıt sitenin içinde görünür. */
+const ASK_ENDPOINT = "";
+let askAbort = null;
+function buildPrompt(c, q) {
+  return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; en fazla 150 kelime. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
+}
+function setupAsk(c) {
+  const out = document.getElementById("answer"), note = document.getElementById("askNote"), btn = document.getElementById("askBtn");
+  note.textContent = ASK_ENDPOINT ? "Yanıtlar yapay zekâ tarafından dosya özetine dayanarak üretilir; resmi kaynağı kontrol edin." : "Sorun, dosya bilgileriyle birlikte Claude'da yeni bir sekmede açılır.";
+  btn.textContent = ASK_ENDPOINT ? "Sor" : "Claude'da sor ↗";
+  document.getElementById("askForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const q = document.getElementById("askInput").value.trim(); if (!q) return;
+    if (!ASK_ENDPOINT) {
+      const w = window.open("https://claude.ai/new?q=" + encodeURIComponent(buildPrompt(c, q)), "_blank", "noopener");
+      out.hidden = false; out.textContent = w === null ? "Yeni sekme açılamadı. Tarayıcının açılır pencere engelini kapatıp tekrar dene." : "Sorun Claude'da açıldı.";
+      return;
+    }
+    out.hidden = false; out.innerHTML = `<span class="typing"><i></i><i></i><i></i></span>`; btn.disabled = true;
+    if (askAbort) askAbort.abort(); askAbort = new AbortController();
+    try {
+      const r = await fetch(ASK_ENDPOINT, { method: "POST", headers: { "content-type": "application/json" }, signal: askAbort.signal,
+        body: JSON.stringify({ question: q, file: { title: c.title, date: c.date, agency: c.agency, ref: c.ref, loc: c.loc, body: c.body, links: c.links.map(l => l[1]) } }) });
+      const d = await r.json().catch(() => ({}));
+      out.textContent = r.ok && d.text ? d.text : (r.status === 429 ? "Çok sık soruldu; bir dakika sonra tekrar dene." : (d.error || "Yanıt alınamadı. Biraz sonra tekrar dene."));
+    } catch (err) {
+      if (err && err.name === "AbortError") return;
+      out.textContent = "Arşivciye ulaşılamadı. Bağlantını kontrol edip tekrar dene.";
+    } finally { btn.disabled = false; }
+  };
+}
 
 /* ---------- canlı akış ---------- */
 const fmtDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }); };
