@@ -4,8 +4,9 @@
 // Sonra Worker adresini index.html içindeki ASK_ENDPOINT satırına yazın.
 
 const ALLOWED_ORIGINS = ["https://urgano.github.io"];
+// SÜRÜM: 3 (12 Kasım 2026)
 const MODEL = "claude-haiku-5-5";       // hızlı ve ucuz model
-const MAX_TOKENS = 1000;
+const MAX_TOKENS = 1500;       // Türkçe çok token harcar; 300 kelime ≈ 1000+ token
 const PER_MINUTE = 6;                    // aynı IP'den dakikada en fazla soru
 
 const hits = new Map();
@@ -61,7 +62,12 @@ export default {
       });
       const out = await r.json();
       if (!r.ok) return reply({ error: "Arşivci şu an yanıt veremiyor. Biraz sonra tekrar dene." }, 502, origin);
-      const text = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("").trim();
+      let text = (out.content || []).filter(b => b.type === "text").map(b => b.text).join("").trim();
+      if (out.stop_reason === "max_tokens") {            // sınıra takıldıysa son tam cümlede bitir
+        const cut = Math.max(text.lastIndexOf(". "), text.lastIndexOf(".\n"), text.lastIndexOf("? "), text.lastIndexOf("! "));
+        if (cut > text.length * 0.5) text = text.slice(0, cut + 1);
+        text += " …";
+      }
       return reply({ text: text || "Bu soruya yanıt üretilemedi." }, 200, origin);
     } catch {
       return reply({ error: "Arşivciye ulaşılamadı." }, 502, origin);
