@@ -103,6 +103,8 @@ h1 .grad { background: linear-gradient(100deg, var(--accent), var(--c-cozulmemis
 .tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .tabs .wrap { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+@media (min-width: 761px) { .tabs .wrap { flex-wrap: wrap; overflow: visible; gap: 6px; } .tab { padding: 5px 11px 5px 6px; gap: 6px; font-size: 13.5px; } .tab .ico { width: 24px; height: 24px; } }
+@media (max-width: 760px) { .tabs .wrap { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 40px; scroll-padding-inline: 16px; } }
 .tab { flex: none; border: 1px solid var(--line); background: var(--glass); padding: 6px 14px 6px 8px; border-radius: 999px; cursor: pointer; font-size: 14px; display: inline-flex; gap: 8px; align-items: center; transition: background .2s, border-color .2s, transform .2s; }
 .tab:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--c, var(--accent)) 60%, transparent); }
 .tab .n { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
@@ -262,7 +264,7 @@ html { scroll-behavior: smooth; }
 .lg-card p { margin: 0; color: var(--muted); font-size: 14px; }
 .verdict { justify-self: start; font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c-efsane) 16%, transparent); color: var(--c-efsane); }
 .verdict.partly { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
-.tab.lg-link { --c: var(--c-efsane); text-decoration: none; border-style: dashed; }
+.tab.lg-link { --c: var(--c-efsane); color: var(--c-efsane); text-decoration: none; border-style: dashed; }
 .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 640px) { .vs { grid-template-columns: 1fr; } }
 .vs > div { padding: 14px 16px; }
@@ -579,7 +581,7 @@ function renderTabs() {
     const n = t.id === "all" ? CASES.length : t.id === "takip" ? follows.size : CASES.filter(c => c.topic === t.id).length;
     const style = ["ufo", "soguk", "psi", "cozulmemis"].includes(t.id) ? ` style="--c:${tc(t.id)}"` : "";
     return `<button class="tab" id="tab-${t.id}" data-t="${t.id}" aria-pressed="${t.id === topic}"${style}>${ICONS[t.id]}${esc(t.name)} <span class="n">${n}</span></button>`;
-  }).join("") + `<a class="tab lg-link" href="#efsaneler">${ICONS.efsane}Efsaneler Odası <span class="n">${LEGENDS.length}</span></a>`;
+  }).join("") + `<a class="tab lg-link" href="#efsaneler">${ICONS.efsane}Efsaneler <span class="n">${LEGENDS.length}</span></a>`;
   el.querySelectorAll("button.tab").forEach(b => b.onclick = () => { topic = b.dataset.t; try { localStorage.setItem("bd-topic", topic); } catch (e) {} renderAll(); });
 }
 
