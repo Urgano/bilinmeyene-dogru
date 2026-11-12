@@ -656,7 +656,7 @@ window.addEventListener("hashchange", openFromHash);
 /* ---------- Arşivciye sor ----------
    ASK_ENDPOINT boşsa soru, dosya bilgileriyle birlikte Claude'da yeni sohbet olarak açılır.
    Cloudflare Worker kurulunca adresini buraya yazın; yanıt sitenin içinde görünür. */
-const ASK_ENDPOINT = "";
+const ASK_ENDPOINT = "https://arsivci.ugurgun.workers.dev/";
 let askAbort = null;
 function buildPrompt(c, q) {
   return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; en fazla 150 kelime. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
