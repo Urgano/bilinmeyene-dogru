@@ -231,6 +231,8 @@ dialog[open] .drawer { animation: drawerIn .35s cubic-bezier(.2, .8, .2, 1); }
 .ask input { flex: 1 1 220px; min-width: 0; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; font: inherit; }
 .ask-note { margin: 0; font-size: 12.5px; color: var(--muted); }
 .answer { white-space: pre-wrap; font-size: 14px; color: var(--fg); }
+.answer:has(p, ul) { white-space: normal; line-height: 1.6; }
+.answer p { margin: 0 0 .6em; } .answer ul { margin: 0 0 .6em; padding-left: 1.2em; } .answer li { margin: .2em 0; } .answer strong { color: var(--fg); font-weight: 650; }
 .typing { display: inline-flex; gap: 4px; } .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bob 1s infinite; } .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
 .related { display: grid; gap: 8px; }
 .related h3 { margin: 0; font-size: 13px; font-family: var(--f-mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 400; }
@@ -661,6 +663,20 @@ let askAbort = null;
 function buildPrompt(c, q) {
   return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; en fazla 150 kelime. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
 }
+function mdLite(t) {
+  const inline = x => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  let html = "", inList = false;
+  for (const raw of String(t).split(/\n/)) {
+    const line = raw.trim();
+    const li = line.match(/^[-*•]\s+(.*)$/) || line.match(/^\d+[.)]\s+(.*)$/);
+    if (li) { if (!inList) { html += "<ul>"; inList = true; } html += `<li>${inline(li[1])}</li>`; continue; }
+    if (inList) { html += "</ul>"; inList = false; }
+    if (!line) continue;
+    const h = line.match(/^#{1,6}\s+(.*)$/);
+    html += h ? `<p><strong>${inline(h[1])}</strong></p>` : `<p>${inline(line)}</p>`;
+  }
+  return html + (inList ? "</ul>" : "");
+}
 function setupAsk(c) {
   const out = document.getElementById("answer"), note = document.getElementById("askNote"), btn = document.getElementById("askBtn");
   note.textContent = ASK_ENDPOINT ? "Yanıtlar yapay zekâ tarafından dosya özetine dayanarak üretilir; resmi kaynağı kontrol edin." : "Sorun, dosya bilgileriyle birlikte Claude'da yeni bir sekmede açılır.";
@@ -679,7 +695,8 @@ function setupAsk(c) {
       const r = await fetch(ASK_ENDPOINT, { method: "POST", headers: { "content-type": "application/json" }, signal: askAbort.signal,
         body: JSON.stringify({ question: q, file: { title: c.title, date: c.date, agency: c.agency, ref: c.ref, loc: c.loc, body: c.body, links: c.links.map(l => l[1]) } }) });
       const d = await r.json().catch(() => ({}));
-      out.textContent = r.ok && d.text ? d.text : (r.status === 429 ? "Çok sık soruldu; bir dakika sonra tekrar dene." : (d.error || "Yanıt alınamadı. Biraz sonra tekrar dene."));
+      if (r.ok && d.text) { out.innerHTML = mdLite(d.text); return; }
+      out.textContent = (r.status === 429 ? "Çok sık soruldu; bir dakika sonra tekrar dene." : (d.error || "Yanıt alınamadı. Biraz sonra tekrar dene."));
     } catch (err) {
       if (err && err.name === "AbortError") return;
       out.textContent = "Arşivciye ulaşılamadı. Bağlantını kontrol edip tekrar dene.";
