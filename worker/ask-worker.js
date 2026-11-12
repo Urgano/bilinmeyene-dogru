@@ -4,7 +4,7 @@
 // Sonra Worker adresini index.html içindeki ASK_ENDPOINT satırına yazın.
 
 const ALLOWED_ORIGINS = ["https://urgano.github.io"];
-// SÜRÜM: 3 (12 Kasım 2026)
+// SÜRÜM: 4 (12 Kasım 2026) · Türkçe + İngilizce
 const MODEL = "claude-haiku-5-5";       // hızlı ve ucuz model
 const MAX_TOKENS = 1500;       // Türkçe çok token harcar; 300 kelime ≈ 1000+ token
 const PER_MINUTE = 6;                    // aynı IP'den dakikada en fazla soru
@@ -44,10 +44,15 @@ export default {
     const q = clip(data?.question, 300).trim();
     const f = data?.file || {};
     if (!q) return reply({ error: "Soru boş." }, 400, origin);
+    const en = data?.lang === "en";
 
-    const system = 'Sen "Bilinmeyene Doğru" adlı, istihbarat teşkilatlarının kamuya açtığı dosyaları derleyen bir arşiv sitesinin arşivcisisin. ' +
+    const systemTr = 'Sen "Bilinmeyene Doğru" adlı, istihbarat teşkilatlarının kamuya açtığı dosyaları derleyen bir arşiv sitesinin arşivcisisin. ' +
       "Yalnızca Türkçe yanıt ver. Kısa sorulara kısa yanıt ver; özet veya açıklama istenirse 250–300 kelimeyi geçmeyen, akıcı ve tam cümlelerle yaz. Telgraf üslubu kullanma, maddeleri yalnızca gerçekten liste gerekiyorsa kullan ve her maddeyi anlaşılır bir cümleyle aç. Sakin ve kanıta dayalı ol. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. " +
       "Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve okuru dosyadaki resmi kaynağa yönlendir. Dosya konusu dışındaki talepleri kibarca geri çevir.";
+    const systemEn = 'You are the archivist of "Into the Unknown" (Bilinmeyene Doğru), an archive site that compiles files released to the public by intelligence agencies. ' +
+      "Answer only in English, even though the file notes below may be in Turkish. Give short answers to short questions; if asked for a summary or explanation, write no more than 250–300 words in flowing, complete sentences. Avoid telegraphic style, use bullet points only when a list is really needed, and open each point with a clear sentence. Be calm and evidence-based. Clearly separate what the official documents say from later interpretations and conspiracy claims. " +
+      "Do not make things up; if you are not sure, say so and point the reader to the official source in the file. Politely decline requests unrelated to the file.";
+    const system = en ? systemEn : systemTr;
     const user =
       `DOSYA: ${clip(f.title, 120)} (${clip(f.date, 60)}), kurum: ${clip(f.agency, 80)}, referans: ${clip(f.ref, 120)}, yer: ${clip(f.loc, 120)}\n` +
       `ÖZET: ${(Array.isArray(f.body) ? f.body : []).map(p => clip(p, 900)).join(" ").slice(0, 2400)}\n` +
@@ -68,7 +73,7 @@ export default {
         if (cut > text.length * 0.5) text = text.slice(0, cut + 1);
         text += " …";
       }
-      return reply({ text: text || "Bu soruya yanıt üretilemedi." }, 200, origin);
+      return reply({ text: text || (en ? "No answer could be generated for this question." : "Bu soruya yanıt üretilemedi.") }, 200, origin);
     } catch {
       return reply({ error: "Arşivciye ulaşılamadı." }, 502, origin);
     }

@@ -273,6 +273,10 @@ html { scroll-behavior: smooth; }
 .vs .record h3 { color: var(--live); }
 .vs p { margin: 0 0 10px; font-size: 14.5px; } .vs p:last-child { margin: 0; }
 .stampline.legend { border-color: var(--c-efsane); color: var(--c-efsane); }
+.langsw { margin-left: auto; display: inline-flex; border: 1px solid var(--line); background: var(--glass); border-radius: 999px; padding: 2px; gap: 2px; }
+.langsw button { font: 500 11.5px/1 var(--f-mono); letter-spacing: .1em; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 6px 10px; cursor: pointer; min-height: 28px; }
+.langsw button[aria-pressed="true"] { background: color-mix(in srgb, var(--live) 22%, var(--glass-hi)); color: var(--fg); }
+.langsw button:focus-visible { outline: 2px solid var(--live); outline-offset: 1px; }
 </style>
 </head>
 <body>
@@ -283,39 +287,40 @@ html { scroll-behavior: smooth; }
   <div class="wrap">
     <div>
       <div class="eyebrow">
-        <span class="live"><i></i><span id="liveLabel">Canlı arşiv</span></span>
+        <span class="live"><i></i><span id="liveLabel" data-i18n="live">Canlı arşiv</span></span>
         <span>CIA · FBI · Pentagon/AARO · NSA · UK National Archives · CNES · FAB</span>
         <span id="updated">Son kontrol: —</span>
+        <span class="langsw" role="group" aria-label="Dil / Language"><button type="button" data-lang="tr" aria-pressed="true" lang="tr">TR</button><button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button></span>
       </div>
-      <h1>Bilinmeyene <span class="grad">Doğru</span></h1>
-      <p class="lede">İstihbarat teşkilatlarının ve devlet arşivlerinin kamuya açtığı dosyalar. Her kayıt resmi kaynağına bağlanır; belgelenen ile hâlâ cevapsız kalanı ayrı ayrı işaretleriz.</p>
+      <h1 data-i18n-html="h1">Bilinmeyene <span class="grad">Doğru</span></h1>
+      <p class="lede" data-i18n="lede">İstihbarat teşkilatlarının ve devlet arşivlerinin kamuya açtığı dosyalar. Her kayıt resmi kaynağına bağlanır; belgelenen ile hâlâ cevapsız kalanı ayrı ayrı işaretleriz.</p>
       <div class="stats" id="stats"></div>
     </div>
-    <div class="radar" id="radar" aria-hidden="true"><div class="cross"></div><div class="sweep"></div><span class="lab">TARAMA</span></div>
+    <div class="radar" id="radar" aria-hidden="true"><div class="cross"></div><div class="sweep"></div><span class="lab" data-i18n="scan">TARAMA</span></div>
   </div>
 </header>
 
-<div class="ticker" aria-label="Son gelişmeler"><div class="wrap"><span class="tag">SON DAKİKA</span><div class="tick-vp"><div class="tick-track" id="ticker"><span>Akış bağlanıyor…</span></div></div></div></div>
+<div class="ticker" aria-label="Son gelişmeler" data-i18n-aria="tickerAria"><div class="wrap"><span class="tag" data-i18n="breaking">SON DAKİKA</span><div class="tick-vp"><div class="tick-track" id="ticker"><span>Akış bağlanıyor…</span></div></div></div></div>
 
-<nav class="tabs" aria-label="Konu başlıkları"><div class="wrap" id="tabs"></div></nav>
+<nav class="tabs" aria-label="Konu başlıkları" data-i18n-aria="tabsAria"><div class="wrap" id="tabs"></div></nav>
 
 <main class="wrap grid">
   <section>
-    <div class="sec-h"><h2>Olay haritası</h2><span class="hint">Pine dokun, dosyayı aç</span></div>
-    <div class="map glass" id="map"><div class="map-empty">Harita yükleniyor…</div></div>
+    <div class="sec-h"><h2 data-i18n="mapH">Olay haritası</h2><span class="hint" data-i18n="mapHint">Pine dokun, dosyayı aç</span></div>
+    <div class="map glass" id="map"><div class="map-empty" data-i18n="mapLoading">Harita yükleniyor…</div></div>
 
     <div class="timeline">
-      <div class="sec-h"><h2>Kronoloji</h2><span class="hint" id="tlCount"></span></div>
+      <div class="sec-h"><h2 data-i18n="tlH">Kronoloji</h2><span class="hint" id="tlCount"></span></div>
       <div id="timeline"></div>
     </div>
   </section>
 
-  <aside class="feed glass" aria-label="Canlı akış">
+  <aside class="feed glass" aria-label="Canlı akış" data-i18n-aria="feedAria">
     <div class="feed-h">
-      <h2>Telsiz <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></h2>
+      <h2><span data-i18n="radio">Telsiz</span> <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></h2>
       <div class="ftabs">
-        <button class="ftab" id="ft-belge" aria-pressed="true" data-kind="belge">Yeni belgeler</button>
-        <button class="ftab" id="ft-gundem" aria-pressed="false" data-kind="gundem">Gündem</button>
+        <button class="ftab" id="ft-belge" aria-pressed="true" data-kind="belge" data-i18n="ftBelge">Yeni belgeler</button>
+        <button class="ftab" id="ft-gundem" aria-pressed="false" data-kind="gundem" data-i18n="ftGundem">Gündem</button>
       </div>
     </div>
     <div class="feed-list" id="feed"><p class="empty">Akış bağlanıyor…</p></div>
@@ -324,20 +329,21 @@ html { scroll-behavior: smooth; }
 </main>
 
 <section class="wrap legends" id="efsaneler" aria-labelledby="lgTitle">
-  <div class="sec-h"><h2 id="lgTitle">Efsaneler Odası</h2><span class="hint">Kronolojiye ve haritaya dahil değildir</span></div>
-  <p class="lead">Bunlar resmi dosya değil, yıllardır anlatılan efsaneler. Her birinde iddiayı ve kayıtlarda gerçekten ne bulunduğunu yan yana koyduk; karar senin.</p>
+  <div class="sec-h"><h2 id="lgTitle" data-i18n="lgH">Efsaneler Odası</h2><span class="hint" data-i18n="lgHint">Kronolojiye ve haritaya dahil değildir</span></div>
+  <p class="lead" data-i18n="lgLead">Bunlar resmi dosya değil, yıllardır anlatılan efsaneler. Her birinde iddiayı ve kayıtlarda gerçekten ne bulunduğunu yan yana koyduk; karar senin.</p>
   <div class="lg-grid" id="legendGrid"></div>
 </section>
 
 <footer class="foot"><div class="wrap">
-  <span>Özetler resmi belgelerden derlenmiştir; tam metin için her dosyadaki resmi bağlantıyı kullanın.</span>
-  <span>“Çözülmemiş” etiketi resmi bir açıklama bulunmadığını gösterir, olağanüstü bir sonuç olduğunu değil.</span>
+  <span data-i18n="foot1">Özetler resmi belgelerden derlenmiştir; tam metin için her dosyadaki resmi bağlantıyı kullanın.</span>
+  <span data-i18n="foot2">“Çözülmemiş” etiketi resmi bir açıklama bulunmadığını gösterir, olağanüstü bir sonuç olduğunu değil.</span>
 </div></footer>
 
-<dialog id="dlg" aria-label="Dosya ayrıntısı"><div class="drawer" id="drawer"></div></dialog>
+<dialog id="dlg" aria-label="Dosya ayrıntısı" data-i18n-aria="dlgAria"><div class="drawer" id="drawer"></div></dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="en.js"></script>
 <script>
 /* ---------- simgeler (küçük döngüsel animasyonlar) ---------- */
 const ICONS = {
@@ -350,7 +356,7 @@ const ICONS = {
   takip: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path class="a-twinkle" d="m14 3 3.2 6.9 7.3.8-5.5 5 1.6 7.3L14 19.2 7.4 23l1.6-7.3-5.5-5 7.3-.8z" fill="currentColor" fill-opacity=".25"/></svg>`,
 };
 
-const TOPICS = [
+const TOPICS_TR = [
   { id: "all", name: "Tüm dosyalar" },
   { id: "ufo", name: "UFO / UAP" },
   { id: "soguk", name: "Soğuk Savaş" },
@@ -358,10 +364,8 @@ const TOPICS = [
   { id: "cozulmemis", name: "Çözülmemiş vakalar" },
   { id: "takip", name: "Takip ettiklerim" },
 ];
-const STATUS = { open: "Çözülmemiş", closed: "Resmi açıklama var", disputed: "Tartışmalı" };
-const STAMP = { open: "Dosya açık", closed: "Gizliliği kaldırıldı", disputed: "Tartışmalı" };
 
-const CASES = [
+const CASES_TR = [
   /* ---------- UFO / UAP ---------- */
   { id: "roswell", topic: "ufo", year: 1947, date: "Temmuz 1947", title: "Roswell enkazı", agency: "FBI", ref: "FBI Vault · Roswell UFO", status: "disputed",
     loc: "Roswell, New Mexico, ABD", lat: 33.39, lon: -104.52,
@@ -537,7 +541,7 @@ const CASES = [
 ];
 
 /* ---------- Efsaneler Odası: kronolojiye, haritaya ve sayaçlara KATILMAZ ---------- */
-const LEGENDS = [
+const LEGENDS_TR = [
   { id: "montauk", year: "1992", origin: "1992 kitabı", title: "Montauk Projesi", verdict: "none",
     loc: "Camp Hero, Montauk, New York, ABD",
     sum: "Long Island'ın ucundaki eski bir askeri üste zaman yolculuğu ve zihin kontrolü deneyleri yapıldığı anlatılır.",
@@ -563,7 +567,117 @@ const LEGENDS = [
     record: ["CIA'nın 2013'te Ulusal Güvenlik Arşivi'nin bilgi edinme başvurusuyla açıkladığı U-2 ve OXCART tarihçesi, üssün varlığını resmen kabul etti. Belgeye göre bölge Nisan 1955'te seçildi ve ilk U-2 test uçuşu 4 Ağustos 1955'te yapıldı.", "Aynı belge, U-2'nin 60.000 fitin üzerindeki uçuşlarının UFO ihbarlarında büyük artışa yol açtığını, 1950'lerin sonundaki ihbarların yarıdan fazlasının U-2 ve OXCART uçuşları olduğunu anlatıyor. Belgede uzaylılardan ya da Roswell'den söz edilmiyor."],
     links: [["NBC News: Alan 51 belgesi (2013)", "https://www.nbcnews.com/sciencemain/area-51-its-purpose-declassified-no-ufos-lots-u-2-6C10931555"]] },
 ];
-const VERDICT = { none: "Belgeyle doğrulanmadı", partly: "Kısmen belgeli" };
+
+/* ---------- dil / language ---------- */
+const I18N = {
+  tr: {
+    docTitle: "Bilinmeyene Doğru", live: "Canlı arşiv", h1: 'Bilinmeyene <span class="grad">Doğru</span>',
+    lede: "İstihbarat teşkilatlarının ve devlet arşivlerinin kamuya açtığı dosyalar. Her kayıt resmi kaynağına bağlanır; belgelenen ile hâlâ cevapsız kalanı ayrı ayrı işaretleriz.",
+    scan: "TARAMA", tickerAria: "Son gelişmeler", breaking: "SON DAKİKA", tabsAria: "Konu başlıkları",
+    mapH: "Olay haritası", mapHint: "Pine dokun, dosyayı aç", mapLoading: "Harita yükleniyor…", tlH: "Kronoloji",
+    feedAria: "Canlı akış", radio: "Telsiz", ftBelge: "Yeni belgeler", ftGundem: "Gündem",
+    lgH: "Efsaneler Odası", lgHint: "Kronolojiye ve haritaya dahil değildir",
+    lgLead: "Bunlar resmi dosya değil, yıllardır anlatılan efsaneler. Her birinde iddiayı ve kayıtlarda gerçekten ne bulunduğunu yan yana koyduk; karar senin.",
+    foot1: "Özetler resmi belgelerden derlenmiştir; tam metin için her dosyadaki resmi bağlantıyı kullanın.",
+    foot2: "“Çözülmemiş” etiketi resmi bir açıklama bulunmadığını gösterir, olağanüstü bir sonuç olduğunu değil.",
+    dlgAria: "Dosya ayrıntısı",
+    topics: { all: "Tüm dosyalar", ufo: "UFO / UAP", soguk: "Soğuk Savaş", psi: "Paranormal deneyler", cozulmemis: "Çözülmemiş vakalar", takip: "Takip ettiklerim" },
+    status: { open: "Çözülmemiş", closed: "Resmi açıklama var", disputed: "Tartışmalı" },
+    stamp: { open: "Dosya açık", closed: "Gizliliği kaldırıldı", disputed: "Tartışmalı" },
+    verdict: { none: "Belgeyle doğrulanmadı", partly: "Kısmen belgeli" },
+    legendsTab: "Efsaneler", files: "dosya", agencies: "kurum", openCases: "açık vaka", records: "kayıt",
+    emptyFollow: "Henüz takip ettiğin dosya yok. Bir dosyayı açıp “Takip et”e dokun; burada toplanır.", emptyTopic: "Bu başlıkta kayıt yok.",
+    decade: d => `${d}'ler`, mapLibFail: "Harita kütüphanesi yüklenemedi. Kronoloji aşağıda.", mapDataFail: "Harita verisi açılamadı. Kronoloji aşağıda.", mapAria: "Dosyaların dünya haritası",
+    close: "Kapat ✕", date: "Tarih", place: "Yer", agency: "Kurum", statusL: "Durum", following: "★ Takipte", follow: "☆ Takip et",
+    ask: "Arşivciye sor", askPh: "Örn. Bu dosyada en çok tartışılan nokta ne?", askPhLg: "Örn. Bu efsanenin gerçek kısmı ne?", askBtn: "Sor",
+    sameTopic: "Aynı başlıkta", lgRoom: "Efsaneler Odası", lgSource: "Efsanenin kaynağı", claim: "İddia", record: "Kayıtlarda ne var", otherLg: "Diğer efsaneler",
+    lgAgency: "Efsane; resmi dosya değil", lgSuffix: " (efsane)", claimTag: "İDDİA: ", recordTag: "BELGE/KAYIT: ",
+    askNote: "Yanıtlar yapay zekâ tarafından dosya özetine dayanarak üretilir; resmi kaynağı kontrol edin.", askNoteClaude: "Sorun, dosya bilgileriyle birlikte Claude'da yeni bir sekmede açılır.",
+    askClaude: "Claude'da sor ↗", popup: "Yeni sekme açılamadı. Tarayıcının açılır pencere engelini kapatıp tekrar dene.", openedClaude: "Sorun Claude'da açıldı.",
+    tooMany: "Çok sık soruldu; bir dakika sonra tekrar dene.", noAnswer: "Yanıt alınamadı. Biraz sonra tekrar dene.", unreachable: "Arşivciye ulaşılamadı. Bağlantını kontrol edip tekrar dene.",
+    emptyBelge: "Henüz kayıtlı yeni belge yok. Teşkilatlar yeni bir paket yayımladığında burada görünecek.", emptyGundem: "Gündem boş. Konuyla ilgili gelişmeler burada akar.",
+    isNew: "YENİ", toSource: "Kaynağa git ↗", waiting: "Yeni yayın bekleniyor…", connecting: "Akış bağlanıyor…",
+    lastChecked: "Son kontrol", feedFoot: n => `${n} kayıt · her 5 dakikada bir yeniden kontrol edilir.`,
+    feedFail: "Akış şu an yüklenemedi. Biraz sonra kendiliğinden yeniden denenecek.", feedWait: "Akış bekleniyor…", feedFootFail: "Akışa ulaşılamadı; 5 dakika içinde yeniden denenecek.",
+    feedFootInit: "Yeni yayınlar geldikçe bu panel kendiliğinden güncellenir.",
+  },
+  en: {
+    docTitle: "Into the Unknown · Bilinmeyene Doğru", live: "Live archive", h1: 'Into the <span class="grad">Unknown</span>',
+    lede: "Files released to the public by intelligence agencies and government archives. Every record links to its official source; we mark what is documented separately from what is still unanswered.",
+    scan: "SCANNING", tickerAria: "Latest developments", breaking: "BREAKING", tabsAria: "Topics",
+    mapH: "Incident map", mapHint: "Tap a pin to open the file", mapLoading: "Loading map…", tlH: "Timeline",
+    feedAria: "Live feed", radio: "Radio", ftBelge: "New documents", ftGundem: "In the news",
+    lgH: "Legends Room", lgHint: "Not included in the timeline or map",
+    lgLead: "These are not official files but legends told for years. For each one we set the claim next to what the records actually contain; you decide.",
+    foot1: "Summaries are compiled from official documents; use the official link in each file for the full text.",
+    foot2: "The “Unsolved” label means there is no official explanation, not that the answer is extraordinary.",
+    dlgAria: "File details",
+    topics: { all: "All files", ufo: "UFO / UAP", soguk: "Cold War", psi: "Paranormal experiments", cozulmemis: "Unsolved cases", takip: "Following" },
+    status: { open: "Unsolved", closed: "Officially explained", disputed: "Disputed" },
+    stamp: { open: "File open", closed: "Declassified", disputed: "Disputed" },
+    verdict: { none: "Not supported by records", partly: "Partly documented" },
+    legendsTab: "Legends", files: "files", agencies: "agencies", openCases: "open cases", records: "records",
+    emptyFollow: "You aren't following any files yet. Open a file and tap “Follow”; it will be collected here.", emptyTopic: "No records under this topic.",
+    decade: d => `${d}s`, mapLibFail: "The map library could not load. The timeline is below.", mapDataFail: "The map data could not be opened. The timeline is below.", mapAria: "World map of the files",
+    close: "Close ✕", date: "Date", place: "Place", agency: "Agency", statusL: "Status", following: "★ Following", follow: "☆ Follow",
+    ask: "Ask the Archivist", askPh: "E.g. What is the most debated point in this file?", askPhLg: "E.g. What part of this legend is real?", askBtn: "Ask",
+    sameTopic: "Same topic", lgRoom: "Legends Room", lgSource: "Origin of the legend", claim: "The claim", record: "What the records show", otherLg: "Other legends",
+    lgAgency: "Legend; not an official file", lgSuffix: " (legend)", claimTag: "CLAIM: ", recordTag: "RECORD: ",
+    askNote: "Answers are generated by AI from the file summary; check the official source.", askNoteClaude: "Your question opens in a new Claude tab along with the file details.",
+    askClaude: "Ask in Claude ↗", popup: "Couldn't open a new tab. Turn off the browser's pop-up blocker and try again.", openedClaude: "Your question was opened in Claude.",
+    tooMany: "Too many questions; try again in a minute.", noAnswer: "No answer came back. Try again in a little while.", unreachable: "Couldn't reach the Archivist. Check your connection and try again.",
+    emptyBelge: "No new documents recorded yet. They will appear here when agencies publish a new tranche.", emptyGundem: "Nothing in the news yet. Related developments will show up here.",
+    isNew: "NEW", toSource: "Go to source ↗", waiting: "Waiting for new releases…", connecting: "Connecting to the feed…",
+    lastChecked: "Last checked", feedFoot: n => `${n} records · checked again every 5 minutes.`,
+    feedFail: "The feed couldn't load right now. It will retry on its own shortly.", feedWait: "Waiting for the feed…", feedFootFail: "Couldn't reach the feed; retrying within 5 minutes.",
+    feedFootInit: "This panel updates on its own as new releases arrive.",
+  },
+};
+const LANGS = ["tr", "en"];
+function pickLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  if (LANGS.includes(q)) return q;
+  try { const s = localStorage.getItem("bd-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  const nav = (navigator.languages || [navigator.language || "tr"]).map(x => String(x).toLowerCase());
+  return nav.some(x => x.startsWith("tr")) || !nav.some(x => x.startsWith("en")) ? "tr" : "en";
+}
+let LANG = pickLang();
+const T = k => (I18N[LANG][k] ?? I18N.tr[k]);
+const LOCALE = () => LANG === "en" ? "en-GB" : "tr-TR";
+let TOPICS, STATUS, STAMP, VERDICT, CASES, LEGENDS;
+function localize() {
+  const en = LANG === "en";
+  TOPICS = TOPICS_TR.map(t => ({ ...t, name: T("topics")[t.id] || t.name }));
+  STATUS = T("status"); STAMP = T("stamp"); VERDICT = T("verdict");
+  const ov = (o, x) => !x ? o : { ...o, ...x, links: o.links.map((l, i) => [x.links?.[i] || l[0], l[1]]) };
+  CASES = CASES_TR.map(c => {
+    if (!en) return c;
+    const x = ov(c, (window.EN_CASES || {})[c.id]);
+    return { ...x, agency: (window.EN_AGENCY || {})[c.agency] || c.agency };
+  });
+  LEGENDS = LEGENDS_TR.map(l => en ? ov(l, (window.EN_LEGENDS || {})[l.id]) : l);
+}
+function applyStatic() {
+  document.documentElement.lang = LANG;
+  document.title = T("docTitle");
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = T(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = T(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", T(el.dataset.i18nAria)));
+  document.querySelectorAll(".langsw button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === LANG));
+}
+function setLang(l) {
+  if (!LANGS.includes(l) || l === LANG) return;
+  LANG = l;
+  try { localStorage.setItem("bd-lang", l); } catch (e) {}
+  const u = new URL(location.href); if (l === "tr") u.searchParams.delete("lang"); else u.searchParams.set("lang", l);
+  history.replaceState(null, "", u.pathname + u.search + u.hash);
+  const dlg = document.getElementById("dlg"), wasOpen = dlg.open;
+  localize(); applyStatic();
+  renderStats(); renderRadar(); renderAll(); renderLegends(); initMap(); renderFeed(); renderTicker(); renderFeedMeta();
+  if (wasOpen) openFromHash();
+}
+document.querySelectorAll(".langsw button").forEach(b => b.onclick = () => setLang(b.dataset.lang));
+localize(); applyStatic();
 
 /* ---------- durum ---------- */
 let topic = "all", feedKind = "belge", feedItems = [];
@@ -581,7 +695,7 @@ function renderTabs() {
     const n = t.id === "all" ? CASES.length : t.id === "takip" ? follows.size : CASES.filter(c => c.topic === t.id).length;
     const style = ["ufo", "soguk", "psi", "cozulmemis"].includes(t.id) ? ` style="--c:${tc(t.id)}"` : "";
     return `<button class="tab" id="tab-${t.id}" data-t="${t.id}" aria-pressed="${t.id === topic}"${style}>${ICONS[t.id]}${esc(t.name)} <span class="n">${n}</span></button>`;
-  }).join("") + `<a class="tab lg-link" href="#efsaneler">${ICONS.efsane}Efsaneler <span class="n">${LEGENDS.length}</span></a>`;
+  }).join("") + `<a class="tab lg-link" href="#efsaneler">${ICONS.efsane}${T("legendsTab")} <span class="n">${LEGENDS.length}</span></a>`;
   el.querySelectorAll("button.tab").forEach(b => b.onclick = () => { topic = b.dataset.t; try { localStorage.setItem("bd-topic", topic); } catch (e) {} renderAll(); });
 }
 
@@ -589,7 +703,7 @@ function renderStats() {
   const agencies = new Set(CASES.map(c => c.agency)).size;
   const open = CASES.filter(c => c.status === "open").length;
   document.getElementById("stats").innerHTML =
-    `<span class="pill"><b>${CASES.length}</b> dosya</span><span class="pill"><b>${agencies}</b> kurum</span><span class="pill"><b>${open}</b> açık vaka</span><span class="pill"><b>${Math.min(...CASES.map(c => c.year))}–${new Date().getFullYear()}</b></span>`;
+    `<span class="pill"><b>${CASES.length}</b> ${T("files")}</span><span class="pill"><b>${agencies}</b> ${T("agencies")}</span><span class="pill"><b>${open}</b> ${T("openCases")}</span><span class="pill"><b>${Math.min(...CASES.map(c => c.year))}–${new Date().getFullYear()}</b></span>`;
 }
 
 function renderRadar() {
@@ -611,17 +725,17 @@ function renderRadar() {
 }
 
 function renderTimeline() {
-  const list = visible().slice().sort((a, b) => a.year - b.year || a.title.localeCompare(b.title, "tr"));
-  document.getElementById("tlCount").textContent = `${list.length} kayıt`;
+  const list = visible().slice().sort((a, b) => a.year - b.year || a.title.localeCompare(b.title, LANG));
+  document.getElementById("tlCount").textContent = `${list.length} ${T("records")}`;
   const el = document.getElementById("timeline");
   if (!list.length) {
-    el.innerHTML = `<p class="empty">${topic === "takip" ? "Henüz takip ettiğin dosya yok. Bir dosyayı açıp “Takip et”e dokun; burada toplanır." : "Bu başlıkta kayıt yok."}</p>`;
+    el.innerHTML = `<p class="empty">${topic === "takip" ? T("emptyFollow") : T("emptyTopic")}</p>`;
     return;
   }
   let html = "", dec = null, open = false;
   for (const c of list) {
     const d = Math.floor(c.year / 10) * 10;
-    if (d !== dec) { if (open) html += `</div>`; dec = d; html += `<div class="decade">${d}'ler</div><div class="cards">`; open = true; }
+    if (d !== dec) { if (open) html += `</div>`; dec = d; html += `<div class="decade">${T("decade")(d)}</div><div class="cards">`; open = true; }
     html += `<button class="case glass" data-id="${c.id}" style="--c:${tc(c.topic)}">
       ${ICONS[c.topic]}
       <div class="c-main">
@@ -637,17 +751,17 @@ function renderTimeline() {
 }
 
 /* ---------- harita ---------- */
-let pinsSel = null;
+let pinsSel = null, WORLD = null;
 async function initMap() {
   const box = document.getElementById("map");
-  if (!window.d3 || !window.topojson) { box.innerHTML = `<div class="map-empty">Harita kütüphanesi yüklenemedi. Kronoloji aşağıda.</div>`; return; }
+  if (!window.d3 || !window.topojson) { box.innerHTML = `<div class="map-empty">${T("mapLibFail")}</div>`; return; }
   try {
-    const world = await (await fetch("world.json")).json();
+    const world = WORLD || (WORLD = await (await fetch("world.json")).json());
     const W = 960, H = 480;
     const proj = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: "Sphere" });
     const path = d3.geoPath(proj);
     box.innerHTML = "";
-    const svg = d3.select(box).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img").attr("aria-label", "Dosyaların dünya haritası");
+    const svg = d3.select(box).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img").attr("aria-label", T("mapAria"));
     svg.append("path").attr("class", "grat").attr("d", path(d3.geoGraticule10()));
     svg.append("path").attr("class", "land").attr("d", path(topojson.feature(world, world.objects.countries)));
     const tip = d3.select(box).append("div").attr("class", "map-tip glass").attr("hidden", "");
@@ -669,7 +783,7 @@ async function initMap() {
       ["ufo", "soguk", "psi", "cozulmemis"].map(t => `<span style="--c:${tc(t)}"><i></i>${TOPICS.find(x => x.id === t).name}</span>`).join(""));
     pinsSel = pins; dimPins();
   } catch (e) {
-    box.innerHTML = `<div class="map-empty">Harita verisi açılamadı. Kronoloji aşağıda.</div>`;
+    box.innerHTML = `<div class="map-empty">${T("mapDataFail")}</div>`;
   }
 }
 function dimPins() { if (!pinsSel) return; const ids = new Set(visible().map(c => c.id)); pinsSel.classed("dim", d => !ids.has(d.id)); }
@@ -682,29 +796,29 @@ function openCase(id) {
   const rel = CASES.filter(x => x.topic === c.topic && x.id !== c.id).sort((a, b) => Math.abs(a.year - c.year) - Math.abs(b.year - c.year)).slice(0, 4);
   dr.style.setProperty("--c", tc(c.topic));
   dr.innerHTML = `
-    <div class="d-top">${ICONS[c.topic]}<button class="close" id="closeBtn">Kapat ✕</button></div>
+    <div class="d-top">${ICONS[c.topic]}<button class="close" id="closeBtn">${T("close")}</button></div>
     <div><div class="kicker">${esc(tname)} · ${esc(c.ref)}</div><h2>${esc(c.title)}</h2></div>
     <span class="stampline">${STAMP[c.status]}</span>
     <dl class="facts glass">
-      <dt>Tarih</dt><dd>${esc(c.date)}</dd><dt>Yer</dt><dd>${esc(c.loc)}</dd>
-      <dt>Kurum</dt><dd>${esc(c.agency)}</dd><dt>Durum</dt><dd>${STATUS[c.status]}</dd>
+      <dt>${T("date")}</dt><dd>${esc(c.date)}</dd><dt>${T("place")}</dt><dd>${esc(c.loc)}</dd>
+      <dt>${T("agency")}</dt><dd>${esc(c.agency)}</dd><dt>${T("statusL")}</dt><dd>${STATUS[c.status]}</dd>
     </dl>
     <div class="body">${c.body.map((p, i) => `<p>${esc(p)}<span class="bar" style="animation-delay:${0.25 + i * 0.35}s" aria-hidden="true"></span></p>`).join("")}</div>
     <div class="src">
       ${c.links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}
-      <button class="btn solid" id="followBtn">${follows.has(c.id) ? "★ Takipte" : "☆ Takip et"}</button>
+      <button class="btn solid" id="followBtn">${follows.has(c.id) ? T("following") : T("follow")}</button>
     </div>
     <div class="ask glass" id="askBox">
-      <h3>${ICONS.psi}Arşivciye sor</h3>
-      <form id="askForm"><input id="askInput" placeholder="Örn. Bu dosyada en çok tartışılan nokta ne?" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">Sor</button></form>
+      <h3>${ICONS.psi}${T("ask")}</h3>
+      <form id="askForm"><input id="askInput" placeholder="${esc(T("askPh"))}" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">${T("askBtn")}</button></form>
       <div class="answer" id="answer" hidden></div>
       <p class="ask-note" id="askNote"></p>
     </div>
-    ${rel.length ? `<div class="related"><h3>Aynı başlıkta</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${r.year} · ${esc(r.title)}</button>`).join("")}</div></div>` : ""}`;
+    ${rel.length ? `<div class="related"><h3>${T("sameTopic")}</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${r.year} · ${esc(r.title)}</button>`).join("")}</div></div>` : ""}`;
   document.getElementById("closeBtn").onclick = () => dlg.close();
   document.getElementById("followBtn").onclick = (e) => {
     follows.has(c.id) ? follows.delete(c.id) : follows.add(c.id); saveFollows();
-    e.target.textContent = follows.has(c.id) ? "★ Takipte" : "☆ Takip et";
+    e.target.textContent = follows.has(c.id) ? T("following") : T("follow");
     renderTabs(); renderTimeline(); dimPins();
   };
   dr.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => openCase(b.dataset.rel));
@@ -734,28 +848,28 @@ function openLegend(id) {
   const rel = LEGENDS.filter(x => x.id !== l.id);
   dr.style.setProperty("--c", "var(--c-efsane)");
   dr.innerHTML = `
-    <div class="d-top">${ICONS.efsane}<button class="close" id="closeBtn">Kapat ✕</button></div>
-    <div><div class="kicker">Efsaneler Odası · ${esc(l.origin)}</div><h2>${esc(l.title)}</h2></div>
+    <div class="d-top">${ICONS.efsane}<button class="close" id="closeBtn">${T("close")}</button></div>
+    <div><div class="kicker">${T("lgRoom")} · ${esc(l.origin)}</div><h2>${esc(l.title)}</h2></div>
     <span class="stampline legend">${VERDICT[l.verdict]}</span>
-    <dl class="facts glass"><dt>Yer</dt><dd>${esc(l.loc)}</dd><dt>Efsanenin kaynağı</dt><dd>${esc(l.origin)}</dd><dt>Durum</dt><dd>${VERDICT[l.verdict]}</dd></dl>
+    <dl class="facts glass"><dt>${T("place")}</dt><dd>${esc(l.loc)}</dd><dt>${T("lgSource")}</dt><dd>${esc(l.origin)}</dd><dt>${T("statusL")}</dt><dd>${VERDICT[l.verdict]}</dd></dl>
     <div class="vs">
-      <div class="claim glass"><h3>İddia</h3>${l.claim.map(p => `<p>${esc(p)}</p>`).join("")}</div>
-      <div class="record glass"><h3>Kayıtlarda ne var</h3>${l.record.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="claim glass"><h3>${T("claim")}</h3>${l.claim.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="record glass"><h3>${T("record")}</h3>${l.record.map(p => `<p>${esc(p)}</p>`).join("")}</div>
     </div>
     <div class="src">${l.links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>
     <div class="ask glass" id="askBox">
-      <h3>${ICONS.psi}Arşivciye sor</h3>
-      <form id="askForm"><input id="askInput" placeholder="Örn. Bu efsanenin gerçek kısmı ne?" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">Sor</button></form>
+      <h3>${ICONS.psi}${T("ask")}</h3>
+      <form id="askForm"><input id="askInput" placeholder="${esc(T("askPhLg"))}" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">${T("askBtn")}</button></form>
       <div class="answer" id="answer" hidden></div>
       <p class="ask-note" id="askNote"></p>
     </div>
-    <div class="related"><h3>Diğer efsaneler</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${esc(r.title)}</button>`).join("")}</div></div>`;
+    <div class="related"><h3>${T("otherLg")}</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${esc(r.title)}</button>`).join("")}</div></div>`;
   document.getElementById("closeBtn").onclick = () => dlg.close();
   dr.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => openLegend(b.dataset.rel));
   dr.scrollTop = 0;
   // Arşivci için: iddia ile belgeyi açıkça etiketle
-  setupAsk({ title: l.title + " (efsane)", date: l.origin, agency: "Efsane; resmi dosya değil", ref: VERDICT[l.verdict], loc: l.loc,
-    body: [...l.claim.map(p => "İDDİA: " + p), ...l.record.map(p => "BELGE/KAYIT: " + p)], links: l.links });
+  setupAsk({ title: l.title + T("lgSuffix"), date: l.origin, agency: T("lgAgency"), ref: VERDICT[l.verdict], loc: l.loc,
+    body: [...l.claim.map(p => T("claimTag") + p), ...l.record.map(p => T("recordTag") + p)], links: l.links });
   if (location.hash !== "#efsane-" + l.id) history.replaceState(null, "", "#efsane-" + l.id);
   if (!dlg.open) dlg.showModal();
 }
@@ -766,6 +880,7 @@ function openLegend(id) {
 const ASK_ENDPOINT = "https://arsivci.ugurgun.workers.dev/";
 let askAbort = null;
 function buildPrompt(c, q) {
+  if (LANG === "en") return `You are the archivist of the "Into the Unknown" (Bilinmeyene Doğru) archive. Answer in English, calmly and based on evidence; if asked for a summary, write 250–300 words in flowing, complete sentences. Clearly separate what the official documents say from later interpretations and conspiracy claims. Do not make things up; if you don't know, say so and suggest the official source.\n\nFILE: ${c.title} (${c.date}), agency: ${c.agency}, reference: ${c.ref}, place: ${c.loc}.\nSUMMARY: ${c.body.join(" ")}\nSOURCES: ${c.links.map(l => l[1]).join(", ")}\n\nQUESTION: ${q}`;
   return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; özet istenirse 250–300 kelimeyle, akıcı ve tam cümlelerle yaz. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
 }
 function mdLite(t) {
@@ -784,52 +899,68 @@ function mdLite(t) {
 }
 function setupAsk(c) {
   const out = document.getElementById("answer"), note = document.getElementById("askNote"), btn = document.getElementById("askBtn");
-  note.textContent = ASK_ENDPOINT ? "Yanıtlar yapay zekâ tarafından dosya özetine dayanarak üretilir; resmi kaynağı kontrol edin." : "Sorun, dosya bilgileriyle birlikte Claude'da yeni bir sekmede açılır.";
-  btn.textContent = ASK_ENDPOINT ? "Sor" : "Claude'da sor ↗";
+  note.textContent = ASK_ENDPOINT ? T("askNote") : T("askNoteClaude");
+  btn.textContent = ASK_ENDPOINT ? T("askBtn") : T("askClaude");
   document.getElementById("askForm").onsubmit = async (e) => {
     e.preventDefault();
     const q = document.getElementById("askInput").value.trim(); if (!q) return;
     if (!ASK_ENDPOINT) {
       const w = window.open("https://claude.ai/new?q=" + encodeURIComponent(buildPrompt(c, q)), "_blank", "noopener");
-      out.hidden = false; out.textContent = w === null ? "Yeni sekme açılamadı. Tarayıcının açılır pencere engelini kapatıp tekrar dene." : "Sorun Claude'da açıldı.";
+      out.hidden = false; out.textContent = w === null ? T("popup") : T("openedClaude");
       return;
     }
     out.hidden = false; out.innerHTML = `<span class="typing"><i></i><i></i><i></i></span>`; btn.disabled = true;
     if (askAbort) askAbort.abort(); askAbort = new AbortController();
     try {
       const r = await fetch(ASK_ENDPOINT, { method: "POST", headers: { "content-type": "application/json" }, signal: askAbort.signal,
-        body: JSON.stringify({ question: q, file: { title: c.title, date: c.date, agency: c.agency, ref: c.ref, loc: c.loc, body: c.body, links: c.links.map(l => l[1]) } }) });
+        body: JSON.stringify({ question: q, lang: LANG, file: { title: c.title, date: c.date, agency: c.agency, ref: c.ref, loc: c.loc, body: c.body, links: c.links.map(l => l[1]) } }) });
       const d = await r.json().catch(() => ({}));
       if (r.ok && d.text) { out.innerHTML = mdLite(d.text); return; }
-      out.textContent = (r.status === 429 ? "Çok sık soruldu; bir dakika sonra tekrar dene." : (d.error || "Yanıt alınamadı. Biraz sonra tekrar dene."));
+      out.textContent = (r.status === 429 ? T("tooMany") : (LANG === "tr" && d.error) || T("noAnswer"));
     } catch (err) {
       if (err && err.name === "AbortError") return;
-      out.textContent = "Arşivciye ulaşılamadı. Bağlantını kontrol edip tekrar dene.";
+      out.textContent = T("unreachable");
     } finally { btn.disabled = false; }
   };
 }
 
 /* ---------- canlı akış ---------- */
-const fmtDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }); };
-const shortDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString("tr-TR", { day: "numeric", month: "short" }); };
+const fmtDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString(LOCALE(), { day: "numeric", month: "long", year: "numeric" }); };
+const shortDate = s => { const d = new Date(s); return isNaN(d) ? s : d.toLocaleDateString(LOCALE(), { day: "numeric", month: "short" }); };
 
+const fx = (x, k) => (LANG === "en" && x[k + "_en"]) || x[k] || "";
+let feedLast = null, feedState = "init";
+function renderFeedMeta() {
+  if (feedLast) document.getElementById("updated").textContent = `${T("lastChecked")}: ${fmtDate(feedLast)}`;
+  else document.getElementById("updated").textContent = `${T("lastChecked")}: —`;
+  document.getElementById("feedFoot").textContent = feedState === "ok" ? T("feedFoot")(feedItems.length) : feedState === "fail" ? T("feedFootFail") : T("feedFootInit");
+  if (feedState === "fail" && !feedItems.length) {
+    document.getElementById("feed").innerHTML = `<p class="empty">${T("feedFail")}</p>`;
+    document.getElementById("ticker").innerHTML = `<span>${T("feedWait")}</span>`;
+  } else if (feedState === "init") {
+    document.getElementById("feed").innerHTML = `<p class="empty">${T("connecting")}</p>`;
+    document.getElementById("ticker").innerHTML = `<span>${T("connecting")}</span>`;
+  }
+}
 function renderFeed() {
+  if (feedState !== "ok") return;
   const el = document.getElementById("feed");
   const list = feedItems.filter(x => x.kind === feedKind).sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  if (!list.length) { el.innerHTML = `<p class="empty">${feedKind === "belge" ? "Henüz kayıtlı yeni belge yok. Teşkilatlar yeni bir paket yayımladığında burada görünecek." : "Gündem boş. Konuyla ilgili gelişmeler burada akar."}</p>`; return; }
+  if (!list.length) { el.innerHTML = `<p class="empty">${feedKind === "belge" ? T("emptyBelge") : T("emptyGundem")}</p>`; return; }
   const recent = Date.now() - 14 * 864e5;
   el.innerHTML = list.map((x, i) => `<article class="item" style="animation-delay:${i * 40}ms">
-      <time datetime="${esc(x.date)}">${fmtDate(x.date)} · ${esc(x.source || "")}</time>
-      <h3>${esc(x.title)}${new Date(x.date).getTime() > recent ? '<span class="new">YENİ</span>' : ""}</h3>
-      ${x.summary ? `<p>${esc(x.summary)}</p>` : ""}
-      ${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">Kaynağa git ↗</a>` : ""}
+      <time datetime="${esc(x.date)}">${fmtDate(x.date)} · ${esc(fx(x, "source"))}</time>
+      <h3>${esc(fx(x, "title"))}${new Date(x.date).getTime() > recent ? `<span class="new">${T("isNew")}</span>` : ""}</h3>
+      ${fx(x, "summary") ? `<p>${esc(fx(x, "summary"))}</p>` : ""}
+      ${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${T("toSource")}</a>` : ""}
     </article>`).join("");
 }
 function renderTicker() {
+  if (feedState !== "ok") return;
   const list = feedItems.slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 8);
   const el = document.getElementById("ticker");
-  if (!list.length) { el.innerHTML = `<span>Yeni yayın bekleniyor…</span>`; return; }
-  const one = list.map(x => `<span><b>${shortDate(x.date)}</b>${esc(x.title)}</span>`).join("");
+  if (!list.length) { el.innerHTML = `<span>${T("waiting")}</span>`; return; }
+  const one = list.map(x => `<span><b>${shortDate(x.date)}</b>${esc(fx(x, "title"))}</span>`).join("");
   el.innerHTML = one + one; // kesintisiz döngü
 }
 document.querySelectorAll(".ftab").forEach(b => b.onclick = () => {
@@ -839,7 +970,7 @@ document.querySelectorAll(".ftab").forEach(b => b.onclick = () => {
 });
 
 async function initFeed() {
-  const foot = document.getElementById("feedFoot");
+  renderFeedMeta();
   let last = "";
   async function load() {
     try {
@@ -850,16 +981,14 @@ async function initFeed() {
       if (sig !== last) {
         last = sig;
         feedItems = Array.isArray(data.items) ? data.items : [];
+        feedLast = data.lastChecked || null; feedState = "ok";
         renderFeed(); renderTicker();
-        if (data.lastChecked) document.getElementById("updated").textContent = `Son kontrol: ${fmtDate(data.lastChecked)}`;
       }
-      foot.textContent = `${feedItems.length} kayıt · her 5 dakikada bir yeniden kontrol edilir.`;
+      feedState = "ok"; renderFeedMeta();
     } catch (e) {
-      if (!feedItems.length) {
-        document.getElementById("feed").innerHTML = `<p class="empty">Akış şu an yüklenemedi. Biraz sonra kendiliğinden yeniden denenecek.</p>`;
-        document.getElementById("ticker").innerHTML = `<span>Akış bekleniyor…</span>`;
-      }
-      foot.textContent = "Akışa ulaşılamadı; 5 dakika içinde yeniden denenecek.";
+      if (!feedItems.length) feedState = "fail";
+      renderFeedMeta();
+      if (feedItems.length) document.getElementById("feedFoot").textContent = T("feedFootFail");
     }
   }
   await load();
