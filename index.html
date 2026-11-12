@@ -661,7 +661,7 @@ window.addEventListener("hashchange", openFromHash);
 const ASK_ENDPOINT = "https://arsivci.ugurgun.workers.dev/";
 let askAbort = null;
 function buildPrompt(c, q) {
-  return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; en fazla 150 kelime. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
+  return `Sen "Bilinmeyene Doğru" arşivinin arşivcisisin. Türkçe, sakin ve kanıta dayalı yanıt ver; özet istenirse 250–300 kelimeyle, akıcı ve tam cümlelerle yaz. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve resmi kaynağı öner.\n\nDOSYA: ${c.title} (${c.date}), kurum: ${c.agency}, referans: ${c.ref}, yer: ${c.loc}.\nÖZET: ${c.body.join(" ")}\nKAYNAKLAR: ${c.links.map(l => l[1]).join(", ")}\n\nSORU: ${q}`;
 }
 function mdLite(t) {
   const inline = x => esc(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");

@@ -5,7 +5,7 @@
 
 const ALLOWED_ORIGINS = ["https://urgano.github.io"];
 const MODEL = "claude-haiku-5-5";       // hızlı ve ucuz model
-const MAX_TOKENS = 450;
+const MAX_TOKENS = 1000;
 const PER_MINUTE = 6;                    // aynı IP'den dakikada en fazla soru
 
 const hits = new Map();
@@ -45,7 +45,7 @@ export default {
     if (!q) return reply({ error: "Soru boş." }, 400, origin);
 
     const system = 'Sen "Bilinmeyene Doğru" adlı, istihbarat teşkilatlarının kamuya açtığı dosyaları derleyen bir arşiv sitesinin arşivcisisin. ' +
-      "Yalnızca Türkçe yanıt ver; en fazla 150 kelime. Sakin ve kanıta dayalı ol. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. " +
+      "Yalnızca Türkçe yanıt ver. Kısa sorulara kısa yanıt ver; özet veya açıklama istenirse 250–300 kelimeyi geçmeyen, akıcı ve tam cümlelerle yaz. Telgraf üslubu kullanma, maddeleri yalnızca gerçekten liste gerekiyorsa kullan ve her maddeyi anlaşılır bir cümleyle aç. Sakin ve kanıta dayalı ol. Resmi belgelerde yazanı, sonradan yapılan yorumlardan ve komplo iddialarından açıkça ayır. " +
       "Emin olmadığın şeyi uydurma; bilmiyorsan söyle ve okuru dosyadaki resmi kaynağa yönlendir. Dosya konusu dışındaki talepleri kibarca geri çevir.";
     const user =
       `DOSYA: ${clip(f.title, 120)} (${clip(f.date, 60)}), kurum: ${clip(f.agency, 80)}, referans: ${clip(f.ref, 120)}, yer: ${clip(f.loc, 120)}\n` +
