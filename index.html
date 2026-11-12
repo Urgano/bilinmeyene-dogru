@@ -34,6 +34,7 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{dis
   --c-soguk: #f2b84b;
   --c-psi: #b39cff;
   --c-cozulmemis: #ff8a6b;
+  --c-efsane: #f08ccf;
   --f-display: "Sora", "Segoe UI", system-ui, sans-serif;
   --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -44,12 +45,12 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{dis
   --bg: #eef2f7; --bg2: #e3e9f2; --glass: rgba(255,255,255,.72); --glass-hi: rgba(255,255,255,.92); --line: rgba(30,50,80,.12);
   --fg: #111a28; --muted: #5a6779; --accent: #a86b00; --live: #0f8a7b; --stamp: #c8382c; --ink: #111a28; --land: #d5deea;
   --glow: rgba(15,138,123,.10); --glow2: rgba(168,107,0,.07);
-  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; color-scheme: light } }
+  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; --c-efsane: #a8327f; color-scheme: light } }
 :root[data-theme="light"] {
   --bg: #eef2f7; --bg2: #e3e9f2; --glass: rgba(255,255,255,.72); --glass-hi: rgba(255,255,255,.92); --line: rgba(30,50,80,.12);
   --fg: #111a28; --muted: #5a6779; --accent: #a86b00; --live: #0f8a7b; --stamp: #c8382c; --ink: #111a28; --land: #d5deea;
   --glow: rgba(15,138,123,.10); --glow2: rgba(168,107,0,.07);
-  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; color-scheme: light }
+  --c-ufo: #0f8a7b; --c-soguk: #a86b00; --c-psi: #6a4fd6; --c-cozulmemis: #c4502e; --c-efsane: #a8327f; color-scheme: light }
 
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.55; min-height: 100vh;
@@ -245,6 +246,31 @@ dialog[open] .drawer { animation: drawerIn .35s cubic-bezier(.2, .8, .2, 1); }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
   .tick-track { animation: none !important; }
 }
+
+/* ---------- Efsaneler Odası ---------- */
+.legends { padding-block: 8px 60px; scroll-margin-top: 70px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.legends .lead { color: var(--muted); max-width: 70ch; margin: -4px 0 16px; font-size: 15px; }
+.lg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 14px; }
+.lg-card { --c: var(--c-efsane); display: grid; gap: 10px; padding: 16px; cursor: pointer; text-align: left; width: 100%; color: var(--fg); font: inherit; transition: transform .2s, border-color .2s, background .2s; }
+.lg-card:hover, .lg-card:focus-visible { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 55%, transparent); background: var(--glass-hi); }
+.lg-card .ico { width: 40px; height: 40px; padding: 6px; border-radius: 12px; background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--c); }
+.lg-card .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.lg-card .yr { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.lg-card h3 { margin: 0; font-family: var(--f-display); font-size: 17px; letter-spacing: -.01em; }
+.lg-card p { margin: 0; color: var(--muted); font-size: 14px; }
+.verdict { justify-self: start; font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--c-efsane) 16%, transparent); color: var(--c-efsane); }
+.verdict.partly { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+.tab.lg-link { --c: var(--c-efsane); text-decoration: none; border-style: dashed; }
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .vs { grid-template-columns: 1fr; } }
+.vs > div { padding: 14px 16px; }
+.vs h3 { margin: 0 0 8px; font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.vs .claim h3 { color: var(--c-efsane); }
+.vs .record h3 { color: var(--live); }
+.vs p { margin: 0 0 10px; font-size: 14.5px; } .vs p:last-child { margin: 0; }
+.stampline.legend { border-color: var(--c-efsane); color: var(--c-efsane); }
 </style>
 </head>
 <body>
@@ -295,6 +321,12 @@ dialog[open] .drawer { animation: drawerIn .35s cubic-bezier(.2, .8, .2, 1); }
   </aside>
 </main>
 
+<section class="wrap legends" id="efsaneler" aria-labelledby="lgTitle">
+  <div class="sec-h"><h2 id="lgTitle">Efsaneler Odası</h2><span class="hint">Kronolojiye ve haritaya dahil değildir</span></div>
+  <p class="lead">Bunlar resmi dosya değil, yıllardır anlatılan efsaneler. Her birinde iddiayı ve kayıtlarda gerçekten ne bulunduğunu yan yana koyduk; karar senin.</p>
+  <div class="lg-grid" id="legendGrid"></div>
+</section>
+
 <footer class="foot"><div class="wrap">
   <span>Özetler resmi belgelerden derlenmiştir; tam metin için her dosyadaki resmi bağlantıyı kullanın.</span>
   <span>“Çözülmemiş” etiketi resmi bir açıklama bulunmadığını gösterir, olağanüstü bir sonuç olduğunu değil.</span>
@@ -312,6 +344,7 @@ const ICONS = {
   soguk: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="a-ring" cx="14" cy="14" r="12"/><circle class="a-ring d2" cx="14" cy="14" r="12"/><circle class="a-ring d3" cx="14" cy="14" r="12"/><path d="M8 15.5h10l3-1.5-3-1.5H8a1.5 1.5 0 0 0 0 3z" fill="currentColor" fill-opacity=".35"/><path d="M13 12.5V10h2.5"/></svg>`,
   psi: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><g class="a-lid"><path d="M2.5 14S7 6.5 14 6.5 25.5 14 25.5 14 21 21.5 14 21.5 2.5 14 2.5 14z" fill="currentColor" fill-opacity=".14"/><g class="a-iris"><circle cx="14" cy="14" r="4.2"/><circle cx="14" cy="14" r="1.7" fill="currentColor"/></g></g><path d="M14 1.5v2.5M5 4.5l1.6 1.8M23 4.5l-1.6 1.8" opacity=".6"/></svg>`,
   cozulmemis: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><text class="a-q" x="9.5" y="17.5" font-family="Sora, sans-serif" font-size="11" font-weight="700" fill="currentColor" stroke="none">?</text><g class="a-mag"><circle cx="12.5" cy="13" r="7.2" fill="currentColor" fill-opacity=".1"/><path d="m18 18.5 6 6"/></g></svg>`,
+  efsane: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7c3.5-1.4 7-1.4 11 1v15c-4-2.4-7.5-2.4-11-1z" fill="currentColor" fill-opacity=".14"/><path d="M25 7c-3.5-1.4-7-1.4-11 1v15c4-2.4 7.5-2.4 11-1z" fill="currentColor" fill-opacity=".08"/><path class="a-twinkle" d="m20 1.5.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z" fill="currentColor"/></svg>`,
   takip: `<svg class="ico" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path class="a-twinkle" d="m14 3 3.2 6.9 7.3.8-5.5 5 1.6 7.3L14 19.2 7.4 23l1.6-7.3-5.5-5 7.3-.8z" fill="currentColor" fill-opacity=".25"/></svg>`,
 };
 
@@ -501,6 +534,35 @@ const CASES = [
     links: [["MH370 (ansiklopedi)", "https://en.wikipedia.org/wiki/Malaysia_Airlines_Flight_370"]] },
 ];
 
+/* ---------- Efsaneler Odası: kronolojiye, haritaya ve sayaçlara KATILMAZ ---------- */
+const LEGENDS = [
+  { id: "montauk", year: "1992", origin: "1992 kitabı", title: "Montauk Projesi", verdict: "none",
+    loc: "Camp Hero, Montauk, New York, ABD",
+    sum: "Long Island'ın ucundaki eski bir askeri üste zaman yolculuğu ve zihin kontrolü deneyleri yapıldığı anlatılır.",
+    claim: ["Hikâyeye göre Camp Hero'nun yeraltı katlarında gizli bir program yürütüldü: kaçırılan çocuklar üzerinde zihin kontrolü, zamanda yolculuk ve ışınlanma deneyleri. Anlatıya göre proje, Philadelphia Deneyi'nin devamıydı.", "Efsanenin kaynağı Preston Nichols ve Peter Moon'un 1992'de yayımladığı The Montauk Project: Experiments in Time kitabı ve onu izleyen devam kitaplarıdır. Hikâye sonradan pek çok dizi ve filme ilham verdi."],
+    record: ["Camp Hero gerçek bir üstür. Ordu burayı 1942'de kıyı savunması için kurdu. Hava Kuvvetleri 1948'de burada radar istasyonu açtı ve üs 1958'de SAGE hava savunma ağına bağlandı.", "1960'ta kurulan dev AN/FPS-35 radarı Sovyet bombardıman uçaklarını izlemek içindi ve 1980'e kadar çalıştı. Alan sonradan devlete devredildi ve 18 Eylül 2002'de Camp Hero Eyalet Parkı olarak halka açıldı. Kitaptaki deneyleri doğrulayan hiçbir resmi belge yayımlanmadı."],
+    links: [["Tarihi işaret: Montauk Hava İstasyonu", "https://www.hmdb.org/m.asp?m=140340"], ["Camp Hero Eyalet Parkı (ansiklopedi)", "https://en.wikipedia.org/wiki/Camp_Hero_State_Park"]] },
+  { id: "philadelphia", year: "1943", origin: "1950'lerin mektupları", title: "Philadelphia Deneyi", verdict: "none",
+    loc: "Philadelphia Donanma Tersanesi, ABD",
+    sum: "ABD Donanması'nın USS Eldridge muhribini görünmez yaptığı, hatta başka bir limana ışınladığı anlatılır.",
+    claim: ["İddiaya göre Ekim 1943'te Philadelphia'da Einstein'ın kuramlarına dayanan bir deneyle USS Eldridge önce görünmez oldu, sonra kısa süreliğine Norfolk'ta belirip geri döndü. Mürettebatın bir kısmının deliye döndüğü ya da gemiyle kaynaştığı anlatılır.", "Hikâye 1950'lerde bir UFO yazarına gönderilen imzalı mektuplarla yayıldı, 1979'daki bir kitap ve 1984'teki film ile ünlendi."],
+    record: ["Donanma Tarih ve Miras Komutanlığı, arşivlerinde böyle bir görünmezlik ya da ışınlanma deneyini destekleyen hiçbir belge bulunmadığını açıkladı. Kayıtlara göre Eldridge 1943 sonbaharında Bermuda'da deneme seferindeydi ve o dönemde Philadelphia'ya hiç gitmedi.", "Deniz Araştırmaları Ofisi'ne göre gemiyi görünmez kılan bir alan bilinen fizik yasalarına uymuyor. Efsanenin olası çekirdeği, gemileri manyetik mayınlardan korumak için uygulanan 'degaussing' işlemi; bu işlem gemiyi göze ya da radara görünmez yapmaz."],
+    links: [["US Navy NHHC: Philadelphia Deneyi SSS (arşiv)", "https://webarchive.library.unt.edu/web/20170118210132/http://www.history.navy.mil/faqs/faq21-1.htm"]] },
+  { id: "bermuda", year: "1964", origin: "1964 dergi makalesi", title: "Bermuda Şeytan Üçgeni", verdict: "none",
+    loc: "Miami – Bermuda – Porto Riko arası, Atlantik",
+    sum: "Florida, Bermuda ve Porto Riko arasındaki denizde gemi ve uçakların açıklanamaz biçimde kaybolduğu anlatılır.",
+    claim: ["Efsaneye göre bu bölgede pusulalar çıldırıyor, gemiler ve uçaklar iz bırakmadan kayboluyor. Açıklama olarak manyetik anomaliler, batık Atlantis teknolojisi ve uzaylılar öne sürülür.", "'Bermuda Üçgeni' adı ilk kez 1964'teki bir dergi yazısında kullanıldı ve 1970'lerin çok satan kitaplarıyla yerleşti. Sitedeki Flight 19 dosyası, efsanenin en çok anılan olayıdır."],
+    record: ["NOAA'ya göre bu bölgedeki kayıplar, eşit yoğunlukta trafik olan diğer okyanus bölgelerinden daha sık değildir. Kayıpların büyük kısmı kasırgalar, Gulf Stream'in ani hava değişimleri ve sığ sularla açıklanabiliyor.", "ABD Donanması ve Sahil Güvenlik, denizdeki kazaların doğaüstü bir açıklaması olmadığını, doğa koşulları ile insan hatasının birleşiminden kaynaklandığını belirtiyor. Üçgenin resmi bir sınırı da yok; ABD Coğrafi Adlar Kurulu bu adı tanımıyor."],
+    links: [["NOAA: Bermuda Üçgeni", "https://oceanservice.noaa.gov/facts/bermudatri.html"]] },
+  { id: "area51", year: "1955", origin: "1989 televizyon röportajı", title: "Alan 51 ve saklanan uzaylılar", verdict: "partly",
+    loc: "Groom Gölü, Nevada, ABD",
+    sum: "Nevada çölündeki gizli üste düşmüş uzay gemilerinin ve uzaylıların saklandığı anlatılır. Üs gerçek; uzaylı kısmı belgelenmedi.",
+    claim: ["Efsaneye göre Alan 51'de Roswell'de düşen gemi dahil uzaylı araçları saklanıyor ve tersine mühendislikle inceleniyor. 1989'da Bob Lazar adlı biri bir televizyon röportajında üste uzaylı teknolojisi üzerinde çalıştığını iddia etti.", "Üssün on yıllarca resmen yok sayılması ve çevresinde görülen tuhaf ışıklar efsaneyi besledi."],
+    record: ["CIA'nın 2013'te Ulusal Güvenlik Arşivi'nin bilgi edinme başvurusuyla açıkladığı U-2 ve OXCART tarihçesi, üssün varlığını resmen kabul etti. Belgeye göre bölge Nisan 1955'te seçildi ve ilk U-2 test uçuşu 4 Ağustos 1955'te yapıldı.", "Aynı belge, U-2'nin 60.000 fitin üzerindeki uçuşlarının UFO ihbarlarında büyük artışa yol açtığını, 1950'lerin sonundaki ihbarların yarıdan fazlasının U-2 ve OXCART uçuşları olduğunu anlatıyor. Belgede uzaylılardan ya da Roswell'den söz edilmiyor."],
+    links: [["NBC News: Alan 51 belgesi (2013)", "https://www.nbcnews.com/sciencemain/area-51-its-purpose-declassified-no-ufos-lots-u-2-6C10931555"]] },
+];
+const VERDICT = { none: "Belgeyle doğrulanmadı", partly: "Kısmen belgeli" };
+
 /* ---------- durum ---------- */
 let topic = "all", feedKind = "belge", feedItems = [];
 let follows = new Set();
@@ -517,8 +579,8 @@ function renderTabs() {
     const n = t.id === "all" ? CASES.length : t.id === "takip" ? follows.size : CASES.filter(c => c.topic === t.id).length;
     const style = ["ufo", "soguk", "psi", "cozulmemis"].includes(t.id) ? ` style="--c:${tc(t.id)}"` : "";
     return `<button class="tab" id="tab-${t.id}" data-t="${t.id}" aria-pressed="${t.id === topic}"${style}>${ICONS[t.id]}${esc(t.name)} <span class="n">${n}</span></button>`;
-  }).join("");
-  el.querySelectorAll(".tab").forEach(b => b.onclick = () => { topic = b.dataset.t; try { localStorage.setItem("bd-topic", topic); } catch (e) {} renderAll(); });
+  }).join("") + `<a class="tab lg-link" href="#efsaneler">${ICONS.efsane}Efsaneler Odası <span class="n">${LEGENDS.length}</span></a>`;
+  el.querySelectorAll("button.tab").forEach(b => b.onclick = () => { topic = b.dataset.t; try { localStorage.setItem("bd-topic", topic); } catch (e) {} renderAll(); });
 }
 
 function renderStats() {
@@ -651,9 +713,50 @@ function openCase(id) {
 }
 const dlgEl = document.getElementById("dlg");
 dlgEl.addEventListener("click", e => { if (e.target === dlgEl) dlgEl.close(); });
-dlgEl.addEventListener("close", () => { if (askAbort) askAbort.abort(); if (location.hash.startsWith("#dosya-")) history.replaceState(null, "", location.pathname + location.search); });
-function openFromHash() { const m = location.hash.match(/^#dosya-([a-z0-9-]+)$/); if (m) openCase(m[1]); }
+dlgEl.addEventListener("close", () => { if (askAbort) askAbort.abort(); if (location.hash.startsWith("#dosya-") || location.hash.startsWith("#efsane-")) history.replaceState(null, "", location.pathname + location.search); });
+function openFromHash() { const m = location.hash.match(/^#dosya-([a-z0-9-]+)$/); if (m) return openCase(m[1]); const g = location.hash.match(/^#efsane-([a-z0-9-]+)$/); if (g) openLegend(g[1]); }
 window.addEventListener("hashchange", openFromHash);
+
+/* ---------- Efsaneler Odası ---------- */
+function renderLegends() {
+  const el = document.getElementById("legendGrid");
+  el.innerHTML = LEGENDS.map(l => `<button class="lg-card glass" data-lg="${l.id}">
+      <div class="top">${ICONS.efsane}<span class="yr">${esc(l.origin)}</span></div>
+      <h3>${esc(l.title)}</h3><p>${esc(l.sum)}</p>
+      <span class="verdict ${l.verdict}">${VERDICT[l.verdict]}</span></button>`).join("");
+  el.querySelectorAll(".lg-card").forEach(b => b.onclick = () => openLegend(b.dataset.lg));
+}
+function openLegend(id) {
+  const l = LEGENDS.find(x => x.id === id); if (!l) return;
+  const dlg = document.getElementById("dlg"), dr = document.getElementById("drawer");
+  const rel = LEGENDS.filter(x => x.id !== l.id);
+  dr.style.setProperty("--c", "var(--c-efsane)");
+  dr.innerHTML = `
+    <div class="d-top">${ICONS.efsane}<button class="close" id="closeBtn">Kapat ✕</button></div>
+    <div><div class="kicker">Efsaneler Odası · ${esc(l.origin)}</div><h2>${esc(l.title)}</h2></div>
+    <span class="stampline legend">${VERDICT[l.verdict]}</span>
+    <dl class="facts glass"><dt>Yer</dt><dd>${esc(l.loc)}</dd><dt>Efsanenin kaynağı</dt><dd>${esc(l.origin)}</dd><dt>Durum</dt><dd>${VERDICT[l.verdict]}</dd></dl>
+    <div class="vs">
+      <div class="claim glass"><h3>İddia</h3>${l.claim.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="record glass"><h3>Kayıtlarda ne var</h3>${l.record.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+    </div>
+    <div class="src">${l.links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>
+    <div class="ask glass" id="askBox">
+      <h3>${ICONS.psi}Arşivciye sor</h3>
+      <form id="askForm"><input id="askInput" placeholder="Örn. Bu efsanenin gerçek kısmı ne?" maxlength="300" autocomplete="off"><button class="btn solid" type="submit" id="askBtn">Sor</button></form>
+      <div class="answer" id="answer" hidden></div>
+      <p class="ask-note" id="askNote"></p>
+    </div>
+    <div class="related"><h3>Diğer efsaneler</h3><div class="row">${rel.map(r => `<button class="btn" data-rel="${r.id}">${esc(r.title)}</button>`).join("")}</div></div>`;
+  document.getElementById("closeBtn").onclick = () => dlg.close();
+  dr.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => openLegend(b.dataset.rel));
+  dr.scrollTop = 0;
+  // Arşivci için: iddia ile belgeyi açıkça etiketle
+  setupAsk({ title: l.title + " (efsane)", date: l.origin, agency: "Efsane; resmi dosya değil", ref: VERDICT[l.verdict], loc: l.loc,
+    body: [...l.claim.map(p => "İDDİA: " + p), ...l.record.map(p => "BELGE/KAYIT: " + p)], links: l.links });
+  if (location.hash !== "#efsane-" + l.id) history.replaceState(null, "", "#efsane-" + l.id);
+  if (!dlg.open) dlg.showModal();
+}
 
 /* ---------- Arşivciye sor ----------
    ASK_ENDPOINT boşsa soru, dosya bilgileriyle birlikte Claude'da yeni sohbet olarak açılır.
@@ -793,7 +896,7 @@ function initStars() {
 }
 
 function renderAll() { renderTabs(); renderTimeline(); dimPins(); }
-renderStats(); renderRadar(); renderAll(); initMap(); initFeed(); initStars(); openFromHash();
+renderStats(); renderRadar(); renderAll(); renderLegends(); initMap(); initFeed(); initStars(); openFromHash();
 </script>
 </body>
 </html>
